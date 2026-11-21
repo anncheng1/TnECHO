@@ -4,6 +4,15 @@ A mobile-first, offline-capable checklist for **Targeted Neonatal Echocardiograp
 [NeoCardio Lab TnECHO Echocardiography Protocol](https://www.neocardiolab.com/tnecho-and-neonatal-hemodynamics/normal-neonatal-echocardiography/tnecho-echocardiography-protocol)
 (Montreal Children's Hospital, Dr G. Altit).
 
+## What's new in v2.1 — simpler, beginner-friendly UI
+- **Bottom tab bar:** Home · Scan · Learn · Tools · Logbook (Report, Approach and About open from buttons, each with a back link).
+- **Home:** first-run welcome guide, current-scan card with progress ring and one big *Continue scan* button, quick-action tiles.
+- **Guided scan:** one view at a time, view chips with ✓ when done, *Previous / Next view*, *Finish & see report*; "📖 How to get this view" links each view to its probe-position card; comfort checklist under *Before you start*.
+- **Cleaner step cards:** larger tick boxes; one action row (Learn · Clip · Note · N/A); modality tags hidden in Beginner mode.
+- **Baby details:** essentials first; logbook and clinical fields under an optional section.
+- **Tools:** six key calculators first, the rest under *More calculators*.
+- **Learn:** "New to neonatal echo? Start here" 5-step path.
+
 ## What's new in v2.0
 - **Beginner mode (default):** 19 core steps in plain language, each with a one-line "why". Switch to *Full protocol* for all 70 steps.
 - **Clips & images:** record video, photograph the echo screen, or upload screenshots — per protocol step or for the whole study. Videos: capture any frame as a still.

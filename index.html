@@ -202,35 +202,137 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
   .view{display:none!important}#v-report{display:block!important}
   pre.report{max-height:none;border:0;background:#fff;color:#000}
 }
+
+/* ===== v2.1 friendly UI ===== */
+body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
+header{padding:8px 12px;padding-top:max(8px,env(safe-area-inset-top));background:#0b1033}
+.hrow{gap:10px}
+.hlogo{width:34px;height:34px;border-radius:9px;flex:0 0 34px}
+.htit{flex:1;min-width:0;line-height:1.15}.htit b{font-size:17px;display:block}
+.htit small{display:block;font-size:12px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.timer{font-size:15px;padding:6px 8px;min-width:64px}
+.hbtn{background:rgba(255,255,255,.14);border:0;color:#fff;border-radius:50%;width:34px;height:34px;font-size:17px;cursor:pointer}
+#bnav{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:40;display:flex;justify-content:space-around;gap:0;padding:6px 4px calc(6px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);box-shadow:0 -2px 12px rgba(0,0,0,.06);overflow:visible}
+#bnav button{flex:1;border:0;background:none;color:var(--muted);border-radius:12px;padding:4px 2px;font:600 11px system-ui;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer}
+#bnav button span{font-size:21px;line-height:1.1;filter:grayscale(1) opacity(.65)}
+#bnav button.on{color:var(--pri2);background:var(--chip)}
+#bnav button.on span{filter:none}
+main{padding-bottom:24px}
+.fab{bottom:calc(78px + env(safe-area-inset-bottom))}
+.toast{bottom:calc(90px + env(safe-area-inset-bottom))}
+.back{border:0;background:none;color:var(--pri2);font:600 14px system-ui;padding:2px 0 10px;cursor:pointer}
+.btn.big{width:100%;padding:14px;font-size:16px;border-radius:12px}
+.welcome{border:2px solid var(--pri2)}
+ol.flow{list-style:none;counter-reset:f;padding:0;margin:8px 0 12px}
+ol.flow li{counter-increment:f;display:flex;flex-direction:column;padding:6px 0 6px 40px;position:relative}
+ol.flow li::before{content:counter(f);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--pri2);color:#fff;display:grid;place-items:center;font-weight:700}
+ol.flow li span{font-size:13px;color:var(--muted)}
+.hero .htop{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.hero small.k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.hero h2{font-size:21px;margin:2px 0}
+.hero .hm{font-size:13.5px;color:var(--muted)}
+.hero .hind{font-size:13.5px;margin:10px 0 12px;padding:8px 10px;background:var(--bg);border-radius:8px}
+.hero .btns{margin-top:8px}.hero .btns .btn{flex:1}
+.ring{--p:0;width:64px;height:64px;border-radius:50%;flex:0 0 64px;background:conic-gradient(var(--ok) calc(var(--p)*1%),var(--line) 0);display:grid;place-items:center}
+.ring b{width:50px;height:50px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:14px;color:var(--ink)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.tiles button{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 12px;text-align:left;font:700 15px system-ui;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.tiles button span{font-size:24px}.tiles small{font:400 12px system-ui;color:var(--muted)}
+details.more>summary{cursor:pointer;list-style:none}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::after{content:"▾";float:right;color:var(--muted)}
+details.more[open]>summary::after{content:"▴"}
+details.more>summary small{color:var(--muted);font-size:12px}
+.scanbar{position:sticky;top:var(--hh,52px);z-index:15;background:var(--bg);padding:4px 0 6px;margin:-12px -12px 0;padding-left:12px;padding-right:12px;border-bottom:1px solid var(--line)}
+.scanbar .prog{background:var(--line);margin-top:8px}
+.scanbar .prog>i{background:var(--ok)}
+.scanbar .ptxt{color:var(--muted);opacity:1}
+.vchips{display:flex;gap:6px;overflow-x:auto;padding-top:6px;scrollbar-width:none}
+.vchips::-webkit-scrollbar{display:none}
+.vchips button{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:5px 10px 5px 5px;font:600 12px system-ui;display:flex;align-items:center;gap:5px;cursor:pointer}
+.vchips button b{width:20px;height:20px;border-radius:50%;background:var(--chip);color:var(--pri);display:grid;place-items:center;font-size:11px}
+.vchips button.done b{background:var(--ok);color:#fff}
+.vchips button.cur{border-color:var(--pri2);background:var(--pri2);color:#fff}
+.vchips button.cur b{background:#fff;color:var(--pri2)}
+.pager .sec{display:none}.pager .sec.cur{display:block}
+.pager .sec>summary{cursor:default}
+.howto{display:block;margin:-4px 14px 10px 54px;border:0;background:var(--chip);color:var(--pri2);border-radius:8px;padding:6px 10px;font:600 12.5px system-ui;cursor:pointer}
+.vnav{display:flex;gap:10px;margin:12px 0 70px}.vnav .btn{flex:1;padding:13px}
+.step{padding:12px 14px}
+.step input[type=checkbox]{width:26px;height:26px;flex:0 0 26px}
+.step .lbl{font-size:15px}
+.srow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}
+.srow button,.srow .learn{font:600 12px system-ui;border:1px solid var(--line);background:var(--card);color:var(--pri2);border-radius:8px;padding:5px 9px;margin:0;cursor:pointer}
+.srow .na-btn{margin-left:auto;color:var(--muted)}
+.step.na .srow .na-btn{background:var(--muted);color:var(--card)}
+.beg .tags .tag:not(.if){display:none}
+.beg .tags:not(:has(.if)){display:none}
+h3.grp{font-size:14px;color:var(--muted);margin:4px 2px 8px}
+.path h2{font-size:15px}
+.pathrow{display:flex;gap:8px;overflow-x:auto;padding:4px 0 2px;scrollbar-width:none}
+.pathrow button{flex:0 0 150px;text-align:left;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px;font:600 13px system-ui;cursor:pointer}
+.pathrow b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--pri2);color:#fff;margin-bottom:6px;font-size:12px}
+.fab{display:none!important}
+.prow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:3px}
+.nextun{border:0;background:none;color:var(--pri2);font:600 12px system-ui;cursor:pointer;padding:2px 0;white-space:nowrap}
+@media print{#bnav,.scanbar,.vnav,.back{display:none!important}body{padding:0}}
 </style>
 </head>
 <body>
 <header id="hdr">
   <div class="hrow">
-    <img src="icon-192.png" alt="" style="width:36px;height:36px;border-radius:9px;flex:0 0 36px"><h1 style="flex:1">TnECHO Protocol<small>Targeted Neonatal Echocardiography</small></h1>
-    <div class="timer" id="timer" title="Tap to start/pause · long-press to reset">00:00</div>
+    <img src="icon-192.png" alt="" class="hlogo">
+    <div class="htit"><b>TnECHO</b><small id="hsub">Targeted neonatal echo</small></div>
+    <div class="timer" id="timer" title="Scan timer — tap to start/pause, long-press to reset">00:00</div>
+    <button class="hbtn" onclick="go('about')" aria-label="About">ⓘ</button>
   </div>
-  <div class="prog"><i id="progbar"></i></div>
-  <div class="ptxt" id="progtxt">0 / 0 steps</div>
 </header>
 
-<nav id="tabs">
-  <button data-v="study" class="on">Study</button>
-  <button data-v="protocol">Protocol</button>
-  <button data-v="train">Training</button>
-  <button data-v="calc">Calculators</button>
-  <button data-v="report">Report</button>
-  <button data-v="log">Logbook</button>
-  <button data-v="approach">Approach</button>
-  <button data-v="about">About</button>
+<nav id="bnav" class="noprint">
+  <button data-v="home" class="on"><span>🏠</span>Home</button>
+  <button data-v="protocol"><span>🫀</span>Scan</button>
+  <button data-v="train"><span>📚</span>Learn</button>
+  <button data-v="calc"><span>🧮</span>Tools</button>
+  <button data-v="log"><span>📒</span>Logbook</button>
 </nav>
 
 <main>
-<!-- STUDY -->
-<section class="view on" id="v-study">
+<!-- HOME -->
+<section class="view on" id="v-home">
+  <div class="card welcome" id="welcome">
+    <h2>👋 Welcome to TnECHO</h2>
+    <p class="sub">A step-by-step guide for targeted neonatal echo. Three steps for every baby:</p>
+    <ol class="flow">
+      <li><b>Baby details</b><span>ID, gestation, weight, why you're scanning</span></li>
+      <li><b>Scan view by view</b><span>Tick each step, add clips, tap 📖 to learn how</span></li>
+      <li><b>Measure & report</b><span>Values fill the calculators; download the PDF for your logbook</span></li>
+    </ol>
+    <button class="btn" onclick="dismissWelcome()">Got it</button>
+  </div>
+
+  <div class="card hero" id="heroCard"></div>
+
+  <div class="tiles">
+    <button onclick="newStudy()"><span>＋</span>New scan<small>Start a new baby</small></button>
+    <button onclick="pickMedia('','')"><span>📷</span>Add clip<small>Photo, video or upload</small></button>
+    <button onclick="go('train')"><span>📚</span>Learn<small>How to get each view</small></button>
+    <button onclick="go('log')"><span>📒</span>Logbook<small>Past scans & PDFs</small></button>
+  </div>
+
   <div class="card">
-    <h2>Study details</h2>
-    <p class="sub">Stored only on this device. Avoid full names — use a study or bed ID.</p>
+    <h2>Clips & images</h2>
+    <p class="sub">Tap a thumbnail to measure, read values from the machine's screen, or hide the baby's name.</p>
+    <div class="mgrid" id="mgrid"></div>
+    <p class="sub" style="margin-top:8px;font-size:12px">⚠ Echo screen photos often show the patient's name or IC — use <b>Redact</b> before adding an image to the report.</p>
+  </div>
+</section>
+
+<!-- STUDY (Baby details) -->
+<section class="view" id="v-study">
+  <button class="back" onclick="go('home')">‹ Home</button>
+  <div class="card">
+    <h2>Baby details</h2>
+    <p class="sub">Stored only on this device. Use a bed or study ID, not the baby's name.</p>
     <div class="grid">
       <label class="f">Study / bed ID<input data-k="pid" placeholder="e.g. NICU-B3"></label>
       <label class="f">Date<input data-k="date" type="date"></label>
@@ -240,49 +342,47 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
       <label class="f">Heart rate (bpm)<input data-k="hr" type="number" inputmode="numeric"></label>
       <label class="f">BP (sys/dia/mean)<input data-k="bp" placeholder="e.g. 48/28/36"></label>
       <label class="f">SpO₂ pre / post-ductal<input data-k="sat" placeholder="e.g. 95 / 88"></label>
+    </div>
+    <label class="f" style="margin-top:10px">Why are you scanning?
+      <textarea data-k="ind" placeholder="e.g. PDA assessment, PPHN, low blood pressure, line position…"></textarea></label>
+  </div>
+  <details class="card more">
+    <summary><h2 style="display:inline">Logbook & clinical details</h2> <small>optional</small></summary>
+    <div class="grid" style="margin-top:10px">
       <label class="f">Operator (trainee)<input data-k="op"></label>
       <label class="f">Supervisor / reviewer<input data-k="rev"></label>
       <label class="f">Logbook case no.<input data-k="caseno" placeholder="auto if blank"></label>
       <label class="f">Level of involvement<select data-k="level"><option value="">—</option><option>Observed</option><option>Performed – supervised</option><option>Performed – independent</option><option>Reported / reviewed</option></select></label>
     </div>
-    <label class="f" style="margin-top:10px">Indication / clinical question
-      <textarea data-k="ind" placeholder="e.g. hsPDA assessment, PPHN, hypotension, post-ligation…"></textarea></label>
-    <label class="f" style="margin-top:10px">Pertinent clinical findings (history, exam, support, labs)
+    <label class="f" style="margin-top:10px">Clinical findings (history, exam, support, labs)
       <textarea data-k="clin" placeholder="Respiratory support, FiO₂, inotropes, Hb, lactate, NT-proBNP…"></textarea></label>
-  </div>
-
-  <div class="card">
-    <h2>Comfort before scanning</h2>
-    <p class="sub">Aim for a focused scan of 15–30 minutes at most.</p>
-    <ul class="cl" id="comfort"></ul>
-  </div>
-
-  <div class="card">
-    <h2>Clips & images</h2>
-    <p class="sub">Record a clip, photograph the echo screen, or upload screenshots/exports. Tap a thumbnail to measure, read values from the machine's measurement panel, or redact identifiers. Stored only on this device.</p>
-    <div class="btns noprint">
-      <button class="btn" onclick="pickMedia('','photo')">📷 Photo</button>
-      <button class="btn" onclick="pickMedia('','video')">🎥 Video</button>
-      <button class="btn ghost" onclick="pickMedia('','upload')">⬆ Upload</button>
-    </div>
-    <div class="mgrid" id="mgrid"></div>
-    <p class="sub" style="margin-top:8px;font-size:12px">⚠ Photos of the echo screen often show the patient's name or IC number — use <b>Redact</b> before including an image in the report.</p>
-  </div>
+  </details>
 
   <div class="btns noprint">
-    <button class="btn" onclick="go('protocol')">Start protocol →</button>
-    <button class="btn ghost" onclick="newStudy()">＋ New study</button>
+    <button class="btn big" onclick="go('protocol')">Start scanning →</button>
   </div>
 </section>
 
 <!-- PROTOCOL -->
 <section class="view" id="v-protocol">
-  <div class="seg noprint" id="modeSeg"><button data-m="beginner">🌱 Beginner (core)</button><button data-m="full">Full protocol</button></div>
-  <p class="sub" id="modeHint" style="font-size:13px;color:var(--muted);margin:6px 0 8px"></p>
-  <div class="filter noprint">
-    <label><input type="checkbox" id="hideDone"> Hide completed steps</label>
+  <div class="scanbar">
+    <div class="seg noprint" id="modeSeg"><button data-m="beginner">🌱 Beginner</button><button data-m="full">Full protocol</button></div>
+    <div class="prog"><i id="progbar"></i></div>
+    <div class="prow"><span class="ptxt" id="progtxt">0 / 0 steps</span><button class="nextun" onclick="nextStep()">Next unticked ↓</button></div>
+    <div class="vchips" id="vchips"></div>
   </div>
-  <div id="sections"></div>
+  <p class="sub" id="modeHint" style="font-size:12.5px;color:var(--muted);margin:8px 2px"></p>
+  <details class="card more" id="before">
+    <summary><h2 style="display:inline">✋ Before you start</h2> <small id="comfortCnt"></small></summary>
+    <p class="sub" style="margin-top:8px">Keep the baby comfortable and aim for 15–30 minutes. The timer starts when you tick your first step.</p>
+    <ul class="cl" id="comfort"></ul>
+  </details>
+  <label style="display:none"><input type="checkbox" id="hideDone"></label>
+  <div id="sections" class="pager"></div>
+  <div class="vnav noprint">
+    <button class="btn ghost" id="vPrev" onclick="moveView(-1)">‹ Previous view</button>
+    <button class="btn" id="vNext" onclick="moveView(1)">Next view ›</button>
+  </div>
 </section>
 
 <!-- LOGBOOK -->
@@ -302,6 +402,16 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
 
 <!-- TRAINING -->
 <section class="view" id="v-train">
+  <div class="card path noprint">
+    <h2>🌱 New to neonatal echo? Start here</h2>
+    <div class="pathrow">
+      <button onclick="tcat='Windows & probe position';$('#tsearch').value='';renderTrain();$('#tlist').scrollIntoView({block:'start'})"><b>1</b>Where to put the probe</button>
+      <button onclick="tcat='LV systolic';$('#tsearch').value='';renderTrain();$('#tlist').scrollIntoView({block:'start'})"><b>2</b>Is the heart squeezing well?</button>
+      <button onclick="tcat='PDA';$('#tsearch').value='';renderTrain();$('#tlist').scrollIntoView({block:'start'})"><b>3</b>Assessing a PDA</button>
+      <button onclick="tcat='Pulmonary haemodynamics';$('#tsearch').value='';renderTrain();$('#tlist').scrollIntoView({block:'start'})"><b>4</b>High lung pressure (PPHN)</button>
+      <button onclick="go('approach')"><b>5</b>Putting it together</button>
+    </div>
+  </div>
   <div class="card noprint" style="margin-bottom:10px">
     <h2>Clips & measurements training</h2>
     <p class="sub">Annotated images from the ASE 2024 TNE guideline and the NPE Teaching Manual (2019): probe position, clip to acquire, how to measure, normal values and pitfalls. Tap an image to enlarge; swipe to browse.</p>
@@ -321,7 +431,8 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
 
 <!-- CALCULATORS -->
 <section class="view" id="v-calc">
-  <p class="sub" style="color:var(--muted);font-size:13px;margin:0 0 10px">Weight and heart rate are taken from the Study tab unless overridden. Results feed the report.</p>
+  <p class="sub" style="color:var(--muted);font-size:13px;margin:0 0 10px">Weight and heart rate come from Baby details. Values you measure on images fill in here automatically.</p>
+  <h3 class="grp">⭐ Key calculators</h3>
   <div class="calc">
     <div class="card"><h2>LV output (LVO)</h2>
       <div class="grid">
@@ -353,13 +464,6 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
       </div>
       <div class="out" id="o-fs">—</div>
     </div>
-    <div class="card"><h2>PAAT : RVET</h2>
-      <div class="grid">
-        <label class="f">PAAT (ms)<input data-c="paat" type="number" inputmode="numeric"></label>
-        <label class="f">RVET (ms)<input data-c="rvet" type="number" inputmode="numeric"></label>
-      </div>
-      <div class="out" id="o-paat">—</div>
-    </div>
     <div class="card"><h2>RVSP from TR jet</h2>
       <div class="grid">
         <label class="f">TR Vmax (m/s)<input data-c="trv" type="number" step="0.01" inputmode="decimal"></label>
@@ -367,6 +471,25 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
         <label class="f">Systolic BP (mmHg)<input data-c="sbp" type="number" inputmode="numeric"></label>
       </div>
       <div class="out" id="o-rvsp">—</div>
+    </div>
+    <div class="card"><h2>PDA</h2>
+      <div class="grid">
+        <label class="f">Diameter, narrowest (mm)<input data-c="pdad" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">Shunt direction<select data-c="pdadir"><option value="">—</option><option>Left → right</option><option>Bidirectional</option><option>Right → left</option><option>Closed / no flow</option></select></label>
+        <label class="f">Peak systolic V (m/s)<input data-c="pdav" type="number" step="0.01" inputmode="decimal"></label>
+        <label class="f">End-diastolic V (m/s)<input data-c="pdaed" type="number" step="0.01" inputmode="decimal"></label>
+      </div>
+      <div class="out" id="o-pda">—</div>
+    </div>
+  </div>
+  <details class="more card" style="margin-top:12px"><summary><h2 style="display:inline">More calculators</h2> <small>6 more</small></summary>
+  <div class="calc" style="margin-top:12px">
+    <div class="card"><h2>PAAT : RVET</h2>
+      <div class="grid">
+        <label class="f">PAAT (ms)<input data-c="paat" type="number" inputmode="numeric"></label>
+        <label class="f">RVET (ms)<input data-c="rvet" type="number" inputmode="numeric"></label>
+      </div>
+      <div class="out" id="o-paat">—</div>
     </div>
     <div class="card"><h2>PA pressure from PI jet</h2>
       <div class="grid">
@@ -381,15 +504,6 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
         <label class="f">D2 — parallel to septum (mm)<input data-c="eid2" type="number" step="0.1" inputmode="decimal"></label>
       </div>
       <div class="out" id="o-ei">—</div>
-    </div>
-    <div class="card"><h2>PDA</h2>
-      <div class="grid">
-        <label class="f">Diameter, narrowest (mm)<input data-c="pdad" type="number" step="0.1" inputmode="decimal"></label>
-        <label class="f">Shunt direction<select data-c="pdadir"><option value="">—</option><option>Left → right</option><option>Bidirectional</option><option>Right → left</option><option>Closed / no flow</option></select></label>
-        <label class="f">Peak systolic V (m/s)<input data-c="pdav" type="number" step="0.01" inputmode="decimal"></label>
-        <label class="f">End-diastolic V (m/s)<input data-c="pdaed" type="number" step="0.01" inputmode="decimal"></label>
-      </div>
-      <div class="out" id="o-pda">—</div>
     </div>
     <div class="card"><h2>RV systolic function</h2>
       <div class="grid">
@@ -416,11 +530,12 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
       </div>
       <div class="out" id="o-ri">—</div>
     </div>
-  </div>
+  </div></details>
 </section>
 
 <!-- REPORT -->
 <section class="view" id="v-report">
+  <button class="back" onclick="go('protocol')">‹ Back to scan</button>
   <div class="card noprint">
     <h2>Main TnECHO findings</h2>
     <p class="sub">Organised segmentally: venous returns → atria → AV connections → ventricles → VA segment → arterial circulation.</p>
@@ -453,6 +568,7 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
 
 <!-- APPROACH -->
 <section class="view" id="v-approach">
+  <button class="back" onclick="go('train')">‹ Learn</button>
   <div class="card">
     <h2>Approach to neonatal haemodynamic evaluation</h2>
     <ol class="app">
@@ -477,6 +593,7 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
 
 <!-- ABOUT -->
 <section class="view" id="v-about">
+  <button class="back" onclick="go('home')">‹ Home</button>
   <div class="card">
     <h2>About</h2>
     <p>This app is a bedside checklist built on the <b>TnECHO Echocardiography Protocol</b> published by NeoCardio Lab (Montreal Children's Hospital, Dr G. Altit). Step wording is paraphrased; refer to the original protocol and its PDF for full detail and images.</p>
@@ -493,7 +610,7 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
   </div>
 </section>
 
-<p class="foot">TnECHO Protocol app · adapted from <a href="https://www.neocardiolab.com" target="_blank" rel="noopener">NeoCardio Lab</a> · for clinical education</p>
+<p class="foot noprint">TnECHO Protocol app · adapted from <a href="https://www.neocardiolab.com" target="_blank" rel="noopener">NeoCardio Lab</a> · for clinical education</p>
 </main>
 
 <div class="fab noprint"><button onclick="nextStep()">Next step ↓</button></div>
@@ -524,7 +641,7 @@ table.gt td:nth-child(2){background:rgba(178,107,0,.08)}table.gt td:nth-child(3)
 <script src="training.js"></script>
 
 <script>
-const APP_VERSION = "2.0.0";
+const APP_VERSION = "2.1.0";
 /* ---------- Protocol data ----------
    Each step: [id, level, key, text, tags[], conditional?]
    Tags: 2D, Colour, PW, CW, M-mode, TDI, 3D, Sweep, Zoom
@@ -683,19 +800,21 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("on"),1800);}
 
 /* ---------- Tabs ---------- */
-function go(v){$$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));$$(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));
- $(".fab").style.display=v==="protocol"?"flex":"none"; if(v==="report")buildReport(); if(v==="calc")calc(); if(v==="train")renderTrain(); window.scrollTo({top:0});}
-$$("nav button").forEach(b=>b.onclick=()=>go(b.dataset.v));
+const NAVOF={home:"home",study:"home",about:"home",protocol:"protocol",report:"protocol",train:"train",approach:"train",calc:"calc",log:"log"};
+function go(v){$$("#bnav button").forEach(b=>b.classList.toggle("on",b.dataset.v===NAVOF[v]));$$(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));
+ $(".fab").style.display=v==="protocol"?"flex":"none"; if(v==="report")buildReport(); if(v==="calc")calc(); if(v==="train")renderTrain(); if(v==="home")renderHome(); if(v==="protocol")setTimeout(setHH,0); window.scrollTo({top:0});}
+$$("#bnav button").forEach(b=>b.onclick=()=>go(b.dataset.v));
 function setHH(){document.documentElement.style.setProperty("--hh",$("#hdr").offsetHeight+"px");}
 addEventListener("resize",setHH);
 
 /* ---------- Bind simple fields ---------- */
-$$("[data-k]").forEach(el=>{const k=el.dataset.k;if(S.f[k]!=null)el.value=S.f[k];el.addEventListener("input",()=>{S.f[k]=el.value;save();if(["wt","hr","bp"].includes(k))calc();});});
+$$("[data-k]").forEach(el=>{const k=el.dataset.k;if(S.f[k]!=null)el.value=S.f[k];el.addEventListener("input",()=>{S.f[k]=el.value;save();updateHeader();if(["wt","hr","bp"].includes(k))calc();});});
 $$("[data-c]").forEach(el=>{const k=el.dataset.c;if(S.c[k]!=null)el.value=S.c[k];el.addEventListener("input",()=>{S.c[k]=el.value;save();calc();});});
 
 /* ---------- Comfort ---------- */
 $("#comfort").innerHTML=COMFORT.map(([k,t])=>`<li><input type="checkbox" id="cf_${k}" ${S.comfort[k]?"checked":""}><label for="cf_${k}">${t}</label></li>`).join("");
-COMFORT.forEach(([k])=>$("#cf_"+k).onchange=e=>{S.comfort[k]=e.target.checked;save();});
+COMFORT.forEach(([k])=>$("#cf_"+k).onchange=e=>{S.comfort[k]=e.target.checked;save();comfortCount();});
+function comfortCount(){const n=COMFORT.filter(([k])=>S.comfort[k]).length;$("#comfortCnt").textContent=`${n}/${COMFORT.length} done`;}
 
 /* ---------- Protocol render ---------- */
 const parents={}; // step id -> has children
@@ -703,10 +822,12 @@ P.forEach(sec=>sec.steps.forEach((st,i)=>{const nx=sec.steps[i+1];if(nx&&nx[1]>s
 function visSteps(sec){return isBeg()?sec.steps.filter(st=>BEG[sec.id+"."+st[0]]):sec.steps;}
 function render(){
  $$("#modeSeg button").forEach(b=>b.classList.toggle("on",b.dataset.m===(isBeg()?"beginner":"full")));
- $("#modeHint").textContent=isBeg()?"Core steps only, in plain language, with why each matters. Switch to Full protocol for every step.":"All 70 steps of the TnECHO acquisition protocol.";
- $("#sections").innerHTML=P.filter(sec=>visSteps(sec).length).map(sec=>`
- <details class="sec" id="sec_${sec.id}" ${sec.n===1?"open":""}>
-  <summary><span class="n">${sec.n}</span><span class="t">${sec.t}<small>${sec.s}</small></span><span class="c" id="cnt_${sec.id}"></span></summary>
+ $("#modeHint").textContent=isBeg()?"🌱 Beginner: the 19 most important steps, one view at a time. Tick each step as you get it.":"Full protocol: all 70 steps of the TnECHO acquisition protocol.";
+ $("#sections").classList.toggle("beg",isBeg());
+ $("#sections").innerHTML=visSecs().map((sec,vi)=>`
+ <details class="sec" id="sec_${sec.id}" open>
+  <summary><span class="n">${vi+1}</span><span class="t">${sec.t}<small>${sec.s}</small></span><span class="c" id="cnt_${sec.id}"></span></summary>
+  ${HOWTO[sec.id]?`<button class="howto" onclick="openTrain('${HOWTO[sec.id]}')">📖 How to get this view (probe position)</button>`:""}
   <div class="steps">${visSteps(sec).map((st,ix)=>{
     let [id,lv,k,txt,tags,cond]=st; const uid=sec.id+"."+id, isP=isBeg()?false:parents[uid], b=isBeg()&&BEG[uid];
     if(b){txt=b[0];lv=0;k=String.fromCharCode(97+ix);}
@@ -715,10 +836,8 @@ function render(){
       <div class="body"><span class="lbl"><span class="k">${k}.</span>${txt}</span>
         ${(tags.length||cond)?`<div class="tags">${tags.map(t=>`<span class="tag">${t}</span>`).join("")}${cond?'<span class="tag if">if present</span>':""}</div>`:""}
         ${b?`<div class="why">💡 ${b[1]}</div>`:""}
-        ${learnBtns(uid)}
-        ${isP?"":`<div class="srow"><button class="nb">+ note</button><button class="cam" onclick="pickMedia('${uid}')">📷 Add clip</button></div><div class="mthumbs" data-mu="${uid}"></div><input class="note-in" placeholder="Measurement / comment">`}
+        ${isP?(learnBtns(uid)?`<div class="srow">${learnBtns(uid)}</div>`:""):`<div class="srow">${learnBtns(uid)}<button class="cam" onclick="pickMedia('${uid}')">📷 Clip</button><button class="nb">✎ Note</button><button class="na-btn" title="Not applicable / not obtained">N/A</button></div><div class="mthumbs" data-mu="${uid}"></div><input class="note-in" placeholder="Measurement / comment">`}
       </div>
-      ${isP?"":'<button class="na-btn" title="Not applicable / not obtained">N/A</button>'}
     </div>`;}).join("")}
   </div></details>`).join("");
  $$(".step").forEach(row=>{
@@ -732,9 +851,21 @@ function render(){
   row.querySelector(".nb").onclick=()=>{row.classList.toggle("shownote");if(row.classList.contains("shownote"))ni.focus();};
   ni.oninput=()=>{S.notes[u]=ni.value;save();};
  });
- progress(); if(window.refreshStepMedia)refreshStepMedia();
+ $$("#sections .sec>summary").forEach(sm=>sm.addEventListener("click",e=>e.preventDefault()));
+ progress(); showView(); if(window.refreshStepMedia)refreshStepMedia();
 }
-$$("#modeSeg button").forEach(b=>b.onclick=()=>{S.mode=b.dataset.m;save();render();});
+const VSHORT={plax:"PLAX",psax:"PSAX",api:"Apical",sub:"Subcostal",ssn:"Arch",pda:"PDA",bpa:"Branch PA",hus:"Head"};
+const HOWTO={plax:"w_plax",psax:"w_psax",api:"w_api",sub:"w_sub",ssn:"w_arch",pda:"w_ductal",bpa:"w_highps",hus:"organ"};
+function visSecs(){return P.filter(sec=>visSteps(sec).length);}
+function showView(){const vs=visSecs();S.view=Math.max(0,Math.min(S.view||0,vs.length-1));const cur=vs[S.view];
+ $$("#sections .sec").forEach(d=>d.classList.toggle("cur",d.id==="sec_"+cur.id));
+ $$("#vchips button").forEach(b=>b.classList.toggle("cur",b.dataset.s===cur.id));
+ const cb=$(`#vchips button[data-s="${cur.id}"]`);if(cb)cb.scrollIntoView({inline:"center",block:"nearest"});
+ $("#vPrev").disabled=S.view===0;$("#vPrev").style.visibility=S.view===0?"hidden":"visible";
+ $("#vNext").textContent=S.view===vs.length-1?"Finish & see report ✓":`Next: ${VSHORT[vs[S.view+1].id]} ›`;}
+function moveView(d){const vs=visSecs();if(d>0&&S.view>=vs.length-1){go("report");return;}S.view=(S.view||0)+d;save();showView();window.scrollTo({top:0,behavior:"smooth"});}
+function gotoView(id){const i=visSecs().findIndex(s=>s.id===id);if(i>=0){S.view=i;save();showView();window.scrollTo({top:0});}}
+$$("#modeSeg button").forEach(b=>b.onclick=()=>{S.mode=b.dataset.m;S.view=0;save();render();});
 function leafIds(sec){return isBeg()?sec.steps.filter(st=>BEG[sec.id+"."+st[0]]).map(st=>sec.id+"."+st[0]):sec.steps.filter(st=>!parents[sec.id+"."+st[0]]).map(st=>sec.id+"."+st[0]);}
 function completeness(){let tot=0,done=0,views=0,vt=0;P.forEach(sec=>{const ids=leafIds(sec);if(!ids.length)return;vt++;const d=ids.filter(u=>S.chk[u]||S.na[u]).length;tot+=ids.length;done+=d;if(d===ids.length)views++;});
  return {tot,done,views,vt,text:`${done} / ${tot} ${isBeg()?"core ":""}steps · ${views}/${vt} views complete`};}
@@ -745,13 +876,14 @@ function progress(){
   const el=$("#sec_"+sec.id); if(el)el.classList.toggle("done",d===ids.length);});
  $("#progbar").style.width=(tot?done/tot*100:0)+"%";
  $("#progtxt").textContent=completeness().text;
+ const vc=$("#vchips");if(vc){vc.innerHTML=visSecs().map((sec,i)=>{const ids=leafIds(sec),d=ids.every(u=>S.chk[u]||S.na[u]);return `<button data-s="${sec.id}" class="${d?"done":""}" onclick="gotoView('${sec.id}')"><b>${d?"✓":i+1}</b>${VSHORT[sec.id]}</button>`;}).join("");if($("#sections .sec.cur"))showView();}
  applyHide();
 }
 function applyHide(){const h=$("#hideDone").checked;$$(".step").forEach(r=>{if(r.dataset.parent)return;r.style.display=(h&&(r.classList.contains("checked")||r.classList.contains("na")))?"none":"";});}
 $("#hideDone").onchange=applyHide;
 function nextStep(){
  for(const sec of P){for(const u of leafIds(sec)){if(!S.chk[u]&&!S.na[u]){
-   const d=$("#sec_"+sec.id);d.open=true;const r=$(`.step[data-u="${u}"]`);
+   gotoView(sec.id);const r=$(`.step[data-u="${u}"]`);
    r.scrollIntoView({behavior:"smooth",block:"center"});r.animate([{background:"#cfe6f7"},{background:""}],{duration:1200});return;}}}
  toast("All steps complete ✓");
 }
@@ -862,7 +994,7 @@ function resetAll(){return newStudy(); if(!confirm("Clear all data for a new stu
 /* ---------- Training ---------- */
 const STEP2T={}; TRAIN.forEach(t=>(t.step||[]).forEach(u=>(STEP2T[u]=STEP2T[u]||[]).push(t)));
 const short=t=>t.t.split(/ [—(]/)[0];
-function learnBtns(uid){const ts=STEP2T[uid];if(!ts)return"";return '<div>'+ts.map(t=>`<button class="learn" onclick="openTrain('${t.id}')">📖 ${short(t)}</button>`).join("")+'</div>';}
+function learnBtns(uid){const ts=STEP2T[uid];if(!ts)return"";return ts.slice(0,isBeg()?1:3).map(t=>`<button class="learn" onclick="openTrain('${t.id}')">📖 ${isBeg()?"Learn":short(t)}</button>`).join("");}
 const imgFile=im=>im.file||imgPath(im.src,im.n);
 const imgLabel=im=>`${SRC[im.src].tag}${/^\d/.test(String(im.n))?" Fig "+im.n:""}`;
 const CALC_OUT={fs:"o-fs",dia:"o-dia",laao:"o-laao",lvo:"o-lvo",ri:"o-ri",rv:"o-rv",rvo:"o-rvo",pap:"o-pap",rvsp:"o-rvsp",ei:"o-ei",paat:"o-paat",pda:"o-pda"};
@@ -972,8 +1104,24 @@ function nextQ(){
   $("#qfb").innerHTML=`<button class="learn" onclick="openTrain('${t.id}')">📖 Review: ${t.t}</button>`;});
 }
 
+/* ---------- Home ---------- */
+function updateHeader(){const f=S.f;$("#hsub").textContent=f.pid?[f.pid,f.ga&&f.ga+" wk",f.wt&&f.wt+" kg"].filter(Boolean).join(" · "):"Targeted neonatal echo";}
+function dismissWelcome(){try{localStorage.setItem("tnecho_welcome","1");}catch(e){}$("#welcome").style.display="none";}
+function renderHome(){
+ let seen=false;try{seen=localStorage.getItem("tnecho_welcome")==="1";}catch(e){}
+ $("#welcome").style.display=seen?"none":"block";
+ const f=S.f,c=completeness(),pct=c.tot?Math.round(c.done/c.tot*100):0,hasD=f.pid||f.wt||f.ga;
+ $("#heroCard").innerHTML=`<div class="htop"><div><small class="k">Current scan · ${isBeg()?"Beginner":"Full protocol"}</small><h2>${hasD?esc2(f.pid||"Baby"):"New baby"}</h2>
+   <div class="hm">${[f.ga&&esc2(f.ga)+" wk",f.dol&&"Day "+esc2(f.dol),f.wt&&esc2(f.wt)+" kg",f.date&&esc2(f.date)].filter(Boolean).join(" · ")||"No details yet"}</div></div>
+   <div class="ring" style="--p:${pct}"><b>${pct}%</b></div></div>
+  ${f.ind?`<div class="hind">${esc2(f.ind)}</div>`:'<div style="height:12px"></div>'}
+  ${hasD?`<button class="btn big" onclick="go('protocol')">${c.done?"Continue scan":"Start scan"} →</button>`:`<button class="btn big" onclick="go('study')">Enter baby details →</button>`}
+  <div class="btns">${hasD?`<button class="btn ghost" onclick="go('study')">✎ Baby details</button>`:`<button class="btn ghost" onclick="go('protocol')">Skip to scan</button>`}<button class="btn ghost" onclick="go('report')">📄 Report</button></div>`;
+}
+const esc2=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
 /* ---------- Init ---------- */
-render();calc();setHH();go("study");
+render();calc();setHH();updateHeader();comfortCount();go("home");
 $("#ver").textContent="Version "+APP_VERSION;
 if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}
 </script>
