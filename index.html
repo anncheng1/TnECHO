@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TnECHO Protocol</title>
+<meta name="description" content="Targeted neonatal echocardiography (TnECHO) acquisition protocol checklist, calculators and report builder.">
+<meta name="theme-color" content="#0b1033">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TnECHO">
+<style>
+:root{
+  --bg:#f4f7fa; --card:#fff; --ink:#14212b; --muted:#5c6b78; --line:#dde4ea;
+  --pri:#0f3d5e; --pri2:#1d6fa5; --ok:#1f8a5b; --warn:#b26b00; --bad:#b3261e;
+  --chip:#eaf2f8; --cond:#fff6e5;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0d1419;--card:#16212a;--ink:#e6edf2;--muted:#93a4b2;--line:#273541;
+  --pri:#7cc0ec;--pri2:#5aa9df;--chip:#1e2f3c;--cond:#2b2414;}
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:0;z-index:20;background:var(--pri);color:#fff;padding:10px 14px calc(8px);padding-top:max(10px,env(safe-area-inset-top))}
+@media (prefers-color-scheme: dark){header{background:#0f3d5e}}
+.hrow{display:flex;align-items:center;gap:10px;justify-content:space-between}
+h1{font-size:18px;margin:0;letter-spacing:.2px}
+h1 small{font-weight:400;opacity:.8;font-size:12px;display:block}
+.timer{font:600 20px/1 ui-monospace,Menlo,monospace;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.14);cursor:pointer;user-select:none;min-width:84px;text-align:center}
+.timer.t15{background:#b26b00}.timer.t30{background:#b3261e}
+.prog{height:6px;background:rgba(255,255,255,.2);border-radius:3px;margin-top:8px;overflow:hidden}
+.prog>i{display:block;height:100%;background:#7ee2b0;width:0;transition:width .3s}
+.ptxt{font-size:12px;opacity:.85;margin-top:3px}
+nav{display:flex;gap:6px;overflow-x:auto;padding:8px 10px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:var(--hh,78px);z-index:15;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:18px;padding:6px 12px;font-size:13px;cursor:pointer}
+nav button.on{background:var(--pri2);border-color:var(--pri2);color:#fff}
+main{max-width:860px;margin:0 auto;padding:12px 12px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.card h2{font-size:16px;margin:0 0 4px;color:var(--pri)}
+.card .sub{font-size:13px;color:var(--muted);margin:0 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+label.f{display:flex;flex-direction:column;font-size:12px;color:var(--muted);gap:3px}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 9px;width:100%}
+textarea{min-height:64px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--pri2);outline-offset:-1px}
+.view{display:none}.view.on{display:block}
+.sec{border:1px solid var(--line);border-radius:12px;background:var(--card);margin-bottom:12px;overflow:hidden}
+.sec>summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.sec>summary::-webkit-details-marker{display:none}
+.sec>summary .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--chip);color:var(--pri);display:grid;place-items:center;font-weight:700}
+.sec.done>summary .n{background:var(--ok);color:#fff}
+.sec>summary .t{flex:1;font-weight:600}
+.sec>summary .t small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.sec>summary .c{font-size:12px;color:var(--muted);white-space:nowrap}
+.steps{border-top:1px solid var(--line)}
+.step{display:flex;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);align-items:flex-start}
+.step:last-child{border-bottom:0}
+.step.sub1{padding-left:36px}.step.sub2{padding-left:58px}
+.step.cond{background:var(--cond)}
+.step input[type=checkbox]{width:22px;height:22px;flex:0 0 22px;margin-top:1px;accent-color:var(--ok)}
+.step .body{flex:1;min-width:0}
+.step .lbl{display:block}
+.step .k{font-weight:700;color:var(--muted);margin-right:4px}
+.step.checked .lbl{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(127,127,127,.5)}
+.step.na .lbl{color:var(--muted);font-style:italic}
+.tags{margin-top:4px;display:flex;flex-wrap:wrap;gap:4px}
+.tag{font-size:11px;padding:1px 7px;border-radius:10px;background:var(--chip);color:var(--pri);font-weight:600}
+.tag.if{background:#ffe7b8;color:#7a4a00}
+@media (prefers-color-scheme: dark){.tag.if{background:#4a3913;color:#ffd58a}}
+.na-btn{font-size:11px;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:6px;padding:2px 6px;cursor:pointer;margin-left:auto;flex:0 0 auto}
+.step.na .na-btn{background:var(--muted);color:var(--card)}
+.note-in{margin-top:6px;font-size:13px;padding:6px 8px;display:none}
+.step.shownote .note-in{display:block}
+.nb{font-size:11px;border:0;background:none;color:var(--pri2);cursor:pointer;padding:0;margin-top:3px}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.calc .card{margin:0}
+.out{margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--chip);font-weight:600;font-size:14px}
+.out small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:0;border-radius:9px;padding:10px 14px;font:600 14px system-ui;cursor:pointer;background:var(--pri2);color:#fff}
+.btn.ghost{background:transparent;color:var(--pri2);border:1px solid var(--pri2)}
+.btn.danger{background:transparent;color:var(--bad);border:1px solid var(--bad)}
+pre.report{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;max-height:60vh;overflow:auto}
+ul.cl{margin:0;padding:0;list-style:none}
+ul.cl li{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);align-items:center}
+ul.cl li:last-child{border-bottom:0}
+ul.cl input{width:20px;height:20px;accent-color:var(--ok)}
+ol.app{margin:0;padding-left:20px}ol.app li{margin-bottom:6px}
+.foot{font-size:12px;color:var(--muted);text-align:center;margin-top:20px}
+.foot a{color:var(--pri2)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#14212b;color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50}
+.toast.on{opacity:.95}
+.fab{position:fixed;right:14px;bottom:max(14px,env(safe-area-inset-bottom));z-index:30;display:flex;gap:8px}
+.fab button{border:0;border-radius:24px;padding:11px 16px;font:600 14px system-ui;background:var(--pri);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer}
+@media (prefers-color-scheme: dark){.fab button{background:#1d6fa5}}
+.filter{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin:0 0 10px}
+.filter input{width:auto}
+@media print{
+  header,nav,.fab,.noprint,.toast{display:none!important}
+  body{background:#fff;color:#000}
+  .view{display:none!important}#v-report{display:block!important}
+  pre.report{max-height:none;border:0;background:#fff;color:#000}
+}
+</style>
+</head>
+<body>
+<header id="hdr">
+  <div class="hrow">
+    <img src="icon-192.png" alt="" style="width:36px;height:36px;border-radius:9px;flex:0 0 36px"><h1 style="flex:1">TnECHO Protocol<small>Targeted Neonatal Echocardiography</small></h1>
+    <div class="timer" id="timer" title="Tap to start/pause · long-press to reset">00:00</div>
+  </div>
+  <div class="prog"><i id="progbar"></i></div>
+  <div class="ptxt" id="progtxt">0 / 0 steps</div>
+</header>
+
+<nav id="tabs">
+  <button data-v="study" class="on">Study</button>
+  <button data-v="protocol">Protocol</button>
+  <button data-v="calc">Calculators</button>
+  <button data-v="report">Report</button>
+  <button data-v="approach">Approach</button>
+  <button data-v="about">About</button>
+</nav>
+
+<main>
+<!-- STUDY -->
+<section class="view on" id="v-study">
+  <div class="card">
+    <h2>Study details</h2>
+    <p class="sub">Stored only on this device. Avoid full names — use a study or bed ID.</p>
+    <div class="grid">
+      <label class="f">Study / bed ID<input data-k="pid" placeholder="e.g. NICU-B3"></label>
+      <label class="f">Date<input data-k="date" type="date"></label>
+      <label class="f">GA at birth (wk+d)<input data-k="ga" placeholder="e.g. 26+3"></label>
+      <label class="f">Day of life<input data-k="dol" type="number" inputmode="numeric" min="0"></label>
+      <label class="f">Current weight (kg)<input data-k="wt" type="number" inputmode="decimal" step="0.001"></label>
+      <label class="f">Heart rate (bpm)<input data-k="hr" type="number" inputmode="numeric"></label>
+      <label class="f">BP (sys/dia/mean)<input data-k="bp" placeholder="e.g. 48/28/36"></label>
+      <label class="f">SpO₂ pre / post-ductal<input data-k="sat" placeholder="e.g. 95 / 88"></label>
+      <label class="f">Operator<input data-k="op"></label>
+      <label class="f">Reviewer<input data-k="rev"></label>
+    </div>
+    <label class="f" style="margin-top:10px">Indication / clinical question
+      <textarea data-k="ind" placeholder="e.g. hsPDA assessment, PPHN, hypotension, post-ligation…"></textarea></label>
+    <label class="f" style="margin-top:10px">Pertinent clinical findings (history, exam, support, labs)
+      <textarea data-k="clin" placeholder="Respiratory support, FiO₂, inotropes, Hb, lactate, NT-proBNP…"></textarea></label>
+  </div>
+
+  <div class="card">
+    <h2>Comfort before scanning</h2>
+    <p class="sub">Aim for a focused scan of 15–30 minutes at most.</p>
+    <ul class="cl" id="comfort"></ul>
+  </div>
+
+  <div class="btns noprint">
+    <button class="btn" onclick="go('protocol')">Start protocol →</button>
+    <button class="btn danger" onclick="resetAll()">New study (clear all)</button>
+  </div>
+</section>
+
+<!-- PROTOCOL -->
+<section class="view" id="v-protocol">
+  <div class="filter noprint">
+    <label><input type="checkbox" id="hideDone"> Hide completed steps</label>
+  </div>
+  <div id="sections"></div>
+</section>
+
+<!-- CALCULATORS -->
+<section class="view" id="v-calc">
+  <p class="sub" style="color:var(--muted);font-size:13px;margin:0 0 10px">Weight and heart rate are taken from the Study tab unless overridden. Results feed the report.</p>
+  <div class="calc">
+    <div class="card"><h2>LV output (LVO)</h2>
+      <div class="grid">
+        <label class="f">LVOT diameter (mm)<input data-c="lvotd" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">Aortic VTI (cm)<input data-c="lvti" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">HR override<input data-c="lhr" type="number" inputmode="numeric"></label>
+      </div>
+      <div class="out" id="o-lvo">—</div>
+    </div>
+    <div class="card"><h2>RV output (RVO)</h2>
+      <div class="grid">
+        <label class="f">RVOT / PV diameter (mm)<input data-c="rvotd" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">Pulmonary VTI (cm)<input data-c="rvti" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">HR override<input data-c="rhr" type="number" inputmode="numeric"></label>
+      </div>
+      <div class="out" id="o-rvo">—</div>
+    </div>
+    <div class="card"><h2>LA : Ao ratio</h2>
+      <div class="grid">
+        <label class="f">LA (mm)<input data-c="la" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">Ao root (mm)<input data-c="ao" type="number" step="0.1" inputmode="decimal"></label>
+      </div>
+      <div class="out" id="o-laao">—</div>
+    </div>
+    <div class="card"><h2>Fractional shortening</h2>
+      <div class="grid">
+        <label class="f">LVIDd (mm)<input data-c="lvidd" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">LVIDs (mm)<input data-c="lvids" type="number" step="0.1" inputmode="decimal"></label>
+      </div>
+      <div class="out" id="o-fs">—</div>
+    </div>
+    <div class="card"><h2>PAAT : RVET</h2>
+      <div class="grid">
+        <label class="f">PAAT (ms)<input data-c="paat" type="number" inputmode="numeric"></label>
+        <label class="f">RVET (ms)<input data-c="rvet" type="number" inputmode="numeric"></label>
+      </div>
+      <div class="out" id="o-paat">—</div>
+    </div>
+    <div class="card"><h2>RVSP from TR jet</h2>
+      <div class="grid">
+        <label class="f">TR Vmax (m/s)<input data-c="trv" type="number" step="0.01" inputmode="decimal"></label>
+        <label class="f">RA pressure (mmHg)<input data-c="rap" type="number" step="1" inputmode="numeric" placeholder="e.g. 5"></label>
+        <label class="f">Systolic BP (mmHg)<input data-c="sbp" type="number" inputmode="numeric"></label>
+      </div>
+      <div class="out" id="o-rvsp">—</div>
+    </div>
+    <div class="card"><h2>PDA</h2>
+      <div class="grid">
+        <label class="f">Diameter, narrowest (mm)<input data-c="pdad" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">Shunt direction<select data-c="pdadir"><option value="">—</option><option>Left → right</option><option>Bidirectional</option><option>Right → left</option><option>Closed / no flow</option></select></label>
+        <label class="f">Peak systolic V (m/s)<input data-c="pdav" type="number" step="0.01" inputmode="decimal"></label>
+        <label class="f">End-diastolic V (m/s)<input data-c="pdaed" type="number" step="0.01" inputmode="decimal"></label>
+      </div>
+      <div class="out" id="o-pda">—</div>
+    </div>
+    <div class="card"><h2>RV systolic function</h2>
+      <div class="grid">
+        <label class="f">TAPSE (mm)<input data-c="tapse" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">RV EDA (cm²)<input data-c="rveda" type="number" step="0.01" inputmode="decimal"></label>
+        <label class="f">RV ESA (cm²)<input data-c="rvesa" type="number" step="0.01" inputmode="decimal"></label>
+      </div>
+      <div class="out" id="o-rv">—</div>
+    </div>
+    <div class="card"><h2>Diastolic indices</h2>
+      <div class="grid">
+        <label class="f">Mitral E (cm/s)<input data-c="me" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">Mitral A (cm/s)<input data-c="ma" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">Lateral e′ (cm/s)<input data-c="ep" type="number" step="0.1" inputmode="decimal"></label>
+      </div>
+      <div class="out" id="o-dia">—</div>
+    </div>
+    <div class="card"><h2>Doppler indices (RI / PI)</h2>
+      <div class="grid">
+        <label class="f">Vessel<select data-c="dvsl"><option>ACA</option><option>MCA</option><option>SMA</option><option>Celiac</option><option>Renal</option><option>Desc. aorta</option></select></label>
+        <label class="f">PSV (cm/s)<input data-c="psv" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">EDV (cm/s, −ve if reversed)<input data-c="edv" type="number" step="0.1" inputmode="decimal"></label>
+        <label class="f">Mean V / TAMV (cm/s)<input data-c="mv" type="number" step="0.1" inputmode="decimal"></label>
+      </div>
+      <div class="out" id="o-ri">—</div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORT -->
+<section class="view" id="v-report">
+  <div class="card noprint">
+    <h2>Main TnECHO findings</h2>
+    <p class="sub">Organised segmentally: venous returns → atria → AV connections → ventricles → VA segment → arterial circulation.</p>
+    <div class="grid" style="grid-template-columns:1fr">
+      <label class="f">Systemic & pulmonary venous return<textarea data-k="r_ven"></textarea></label>
+      <label class="f">Atria & atrial septum (shunt size / direction)<textarea data-k="r_atr"></textarea></label>
+      <label class="f">AV valves (TR / MR, inflow)<textarea data-k="r_av"></textarea></label>
+      <label class="f">Ventricles (size, hypertrophy, systolic & diastolic function, septal position)<textarea data-k="r_vent"></textarea></label>
+      <label class="f">Ventriculo-arterial segment (outflows, output, PA pressure / PVR)<textarea data-k="r_va"></textarea></label>
+      <label class="f">Arterial circulation (PDA, arch, descending aorta, organ Doppler)<textarea data-k="r_art"></textarea></label>
+      <label class="f">Other (effusions, line position, cerebral Doppler)<textarea data-k="r_oth"></textarea></label>
+    </div>
+  </div>
+  <div class="card noprint">
+    <h2>Impression & plan</h2>
+    <div class="grid" style="grid-template-columns:1fr">
+      <label class="f">Physiological synthesis<textarea data-k="r_imp"></textarea></label>
+      <label class="f">Immediate management recommendations<textarea data-k="r_mgmt"></textarea></label>
+      <label class="f">Follow-up<textarea data-k="r_fu"></textarea></label>
+    </div>
+  </div>
+  <div class="btns noprint" style="margin-bottom:12px">
+    <button class="btn" onclick="buildReport();copyReport()">Copy report</button>
+    <button class="btn ghost" onclick="buildReport();window.print()">Print / PDF</button>
+    <button class="btn ghost" onclick="buildReport();downloadReport()">Download .txt</button>
+  </div>
+  <pre class="report" id="reportOut"></pre>
+</section>
+
+<!-- APPROACH -->
+<section class="view" id="v-approach">
+  <div class="card">
+    <h2>Approach to neonatal haemodynamic evaluation</h2>
+    <ol class="app">
+      <li><b>History</b> — antenatal, perinatal, current illness and trajectory.</li>
+      <li><b>Examination & vitals</b> — pre/post-ductal saturations, blood pressure, perfusion, NIRS, current medications; consider situs and possible shunts.</li>
+      <li><b>Saturations & pressures by vessel and chamber</b> — reason through shunt direction and magnitude.</li>
+      <li><b>Investigations</b> — Hb, blood gas, electrolytes, NT-proBNP, chest X-ray, ECG.</li>
+      <li><b>TnECHO findings</b> — systolic/diastolic function, hypertrophy, outflow obstruction, valves, shunts, PA pressure & PVR, venous returns, line tips, effusions.</li>
+      <li><b>Management plan</b> — cardiorespiratory support, electrolytes, preload/filling, inotropes, pulmonary and systemic vasodilation, adrenal support, follow-up imaging.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h2>Sequence at a glance</h2>
+    <ol class="app">
+      <li>Parasternal long axis</li><li>Parasternal short axis</li><li>Apical views (4C, 3C, 2C, RV 3C, TDI)</li>
+      <li>Subcostal long & short axis</li><li>Suprasternal (arch, SVC)</li><li>PDA view</li>
+      <li>Branch PAs & crab view</li><li>Head ultrasound Doppler</li>
+    </ol>
+    <p class="sub" style="margin-top:8px">Within each view: sweep in 2D greyscale first, then colour, then spectral Doppler / M-mode / TDI.</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="view" id="v-about">
+  <div class="card">
+    <h2>About</h2>
+    <p>This app is a bedside checklist built on the <b>TnECHO Echocardiography Protocol</b> published by NeoCardio Lab (Montreal Children's Hospital, Dr G. Altit). Step wording is paraphrased; refer to the original protocol and its PDF for full detail and images.</p>
+    <p><a href="https://www.neocardiolab.com/tnecho-and-neonatal-hemodynamics/normal-neonatal-echocardiography/tnecho-echocardiography-protocol" target="_blank" rel="noopener">Open the source protocol ↗</a></p>
+    <p class="sub">Note: item 2e (PSAX) was not available in the source page at the time of building and is shown as “refer to source”.</p>
+    <h2 style="margin-top:14px">Disclaimer</h2>
+    <p class="sub">Educational and workflow aid only. Not a medical device. Calculations must be verified; interpretation remains the responsibility of the performing clinician and must follow local unit guidance. No data leaves the device.</p>
+    <h2 style="margin-top:14px">Install</h2>
+    <p class="sub">Android/Chrome: menu → “Install app”. iPhone/Safari: Share → “Add to Home Screen”. Works offline after first load.</p>
+    <p class="sub" id="ver"></p>
+  </div>
+</section>
+
+<p class="foot">TnECHO Protocol app · adapted from <a href="https://www.neocardiolab.com" target="_blank" rel="noopener">NeoCardio Lab</a> · for clinical education</p>
+</main>
+
+<div class="fab noprint"><button onclick="nextStep()">Next step ↓</button></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const APP_VERSION = "1.1.0";
+/* ---------- Protocol data ----------
+   Each step: [id, level, key, text, tags[], conditional?]
+   Tags: 2D, Colour, PW, CW, M-mode, TDI, 3D, Sweep, Zoom
+*/
+const P = [
+ {id:"plax", n:1, t:"Parasternal long axis (PLAX)", s:"Full anterior–posterior sweep · 2D then colour", steps:[
+  ["a",0,"a","2D greyscale and colour at the aortic–mitral valve level",["2D","Colour"]],
+  ["b",0,"b","Zoomed 2D and colour of the aortic valve — measure LVOT",["Zoom","2D","Colour"]],
+  ["c",0,"c","M-mode at LA / aortic root — LA:Ao ratio",["M-mode"]],
+  ["d",0,"d","M-mode at mitral valve tips — FS, LV dimensions, LV mass",["M-mode"]],
+  ["e",0,"e","Tricuspid valve (tilt posteriorly / RV inflow)",[]],
+  ["e1",1,"i","2D greyscale and colour of the TV",["2D","Colour"]],
+  ["e2",1,"ii","CW of TR jet if present, incl. systolic:diastolic time ratio",["CW"],1],
+  ["e3",1,"iii","PW of RV inflow",["PW"]],
+  ["f",0,"f","Pulmonary valve (tilt anteriorly / RVOT)",[]],
+  ["f1",1,"i","2D for RVOT measurement; colour for flow and PI",["2D","Colour"]],
+  ["f2",1,"ii","PW in RVOT",["PW"]],
+  ["f3",1,"iii","PW at PV tips — PAAT, RVET, VTI",["PW"]],
+  ["f4",1,"iv","CW of pulmonary insufficiency",["CW"],1],
+  ["g",0,"g","Any VSD (check in every view): zoomed 2D + colour; PW if low velocity; CW",["Zoom","Colour","PW","CW"],1]
+ ]},
+ {id:"psax", n:2, t:"Parasternal short axis (PSAX)", s:"Sweep from aortic valve to LV apex · 2D then colour", steps:[
+  ["a",0,"a","2D greyscale and colour at pulmonary and aortic valve level",["2D","Colour"]],
+  ["a1",1,"i","PW at pulmonary valve tips",["PW"]],
+  ["a2",1,"ii","CW of PV if PI present",["CW"],1],
+  ["b",0,"b","M-mode at LA–Ao level and at mitral valve tips (PSAX)",["M-mode"]],
+  ["c",0,"c","2D greyscale, 3 beats, mitral valve level",["2D"]],
+  ["d",0,"d","2D greyscale, 3 beats, mid-papillary level",["2D"]],
+  ["e",0,"e","Refer to source protocol (item not captured)",[],1],
+  ["f",0,"f","Colour sweep base → apex for septal defects; CW of any defect flow",["Sweep","Colour","CW"]],
+  ["g",0,"g","CW of TR jet if seen in PSAX",["CW"],1]
+ ]},
+ {id:"api", n:3, t:"Apical views", s:"Sweep anterior → posterior · 2D then colour", steps:[
+  ["a",0,"a","A4C, LV-focused, 2D greyscale",["2D"]],
+  ["a1",1,"i","Low-Nyquist colour box over pulmonary veins entering LA",["Colour"]],
+  ["a2",1,"ii","PW of pulmonary veins from the LA",["PW"]],
+  ["b",0,"b","A4C, RV-focused, 2D greyscale",["2D"]],
+  ["c",0,"c","Colour over tricuspid and mitral valves",["Colour"]],
+  ["c1",1,"i","PW below TV — E / A",["PW"]],
+  ["c2",1,"ii","PW below MV — E / A",["PW"]],
+  ["c3",1,"iii","CW across MV for LV dP/dt if MR present",["CW"],1],
+  ["c4",1,"iv","CW across TV — record even without jet (S:D time ratio); RV dP/dt if jet ≥ 2 m/s",["CW"]],
+  ["d",0,"d","PW of each pulmonary vein",["PW"]],
+  ["e",0,"e","A4C zoomed on LA — dimensions",["Zoom","2D"]],
+  ["f",0,"f","A4C zoomed on RA — dimensions",["Zoom","2D"]],
+  ["g",0,"g","M-mode of lateral TV annulus — TAPSE (line through apex)",["M-mode"]],
+  ["h",0,"h","Tissue Doppler imaging",["TDI"]],
+  ["h1",1,"i","RV free wall at TV annulus",["TDI"]],
+  ["h2",1,"ii","LV lateral wall at MV annulus",["TDI"]],
+  ["h3",1,"iii","Septum at MV annulus",["TDI"]],
+  ["i",0,"i","Apical 3-chamber, 2D greyscale",["2D"]],
+  ["i1",1,"i","Colour through aortic valve",["Colour"]],
+  ["i2",2,"1","PW just above AV — LV VTI",["PW"]],
+  ["i3",2,"2","PW inflow–outflow",["PW"]],
+  ["j",0,"j","Apical 2-chamber, 2D greyscale and colour",["2D","Colour"]],
+  ["j1",1,"i","PW of mitral inflow",["PW"]],
+  ["j2",1,"ii","CW across MV for dP/dt if MR present",["CW"],1],
+  ["j3",1,"iii","Biplane LA dimensions",["2D"]],
+  ["k",0,"k","Slide from A2C toward sternum — RV inflow–outflow (“RV 3-chamber”)",[]],
+  ["k1",1,"i","PW of RVOT",["PW"]],
+  ["k2",1,"ii","PW of RV inflow",["PW"]],
+  ["k3",1,"iii","CW across TV",["CW"]],
+  ["k4",1,"iv","Colour clip",["Colour"]],
+  ["k5",1,"v","2D greyscale clip",["2D"]],
+  ["l",0,"l","3D LV and RV volumes (≥ 4 quadrant captures each) — only if 3D available",["3D"],1]
+ ]},
+ {id:"sub", n:4, t:"Subcostal", s:"Long and short axis sweeps", steps:[
+  ["a",0,"a","Subcostal long axis — sweep IVC → RVOT, 2D and colour",["Sweep","2D","Colour"]],
+  ["a1",1,"i","2D + colour of atrial septum — interatrial shunt",["2D","Colour"]],
+  ["a2",1,"ii","Doppler of hepatic veins and IVC with colour",["Colour","PW"]],
+  ["a3",1,"iii","PW/CW across interatrial shunt (esp. if RV/LV diastolic dysfunction)",["PW","CW"],1],
+  ["b",0,"b","Subcostal short axis — sweep anterior → posterior",["Sweep"]],
+  ["b1",1,"i","2D + colour of atrial septum",["2D","Colour"]],
+  ["b2",1,"ii","Colour over descending aorta",["Colour"]],
+  ["b3",1,"iii","PW of descending aorta",["PW"]],
+  ["b4",1,"iv","Doppler of hepatic veins and IVC with colour",["Colour","PW"]],
+  ["b5",1,"v","PW of RVOT",["PW"]],
+  ["b6",1,"vi","PW/CW across interatrial shunt",["PW","CW"],1],
+  ["c",0,"c","Greyscale sweeps documenting anatomy (short + long axis)",["Sweep","2D"]]
+ ]},
+ {id:"ssn", n:5, t:"Suprasternal", s:"Aortic arch and SVC", steps:[
+  ["a",0,"a","Arch long axis, 2D and colour",["2D","Colour"]],
+  ["a1",1,"i","PW ascending aorta",["PW"]],
+  ["a2",1,"ii","PW pre-ductal descending aorta",["PW"]],
+  ["a3",1,"iii","PW post-ductal descending aorta",["PW"]],
+  ["a4",1,"iv","Sweep to confirm brachiocephalic artery branching to the right",["Sweep"]],
+  ["b",0,"b","Short axis",[]],
+  ["b1",1,"i","Sweep for branching pattern and arch sidedness (2D + colour)",["Sweep","2D","Colour"]],
+  ["b2",1,"ii","SVC in 2D and colour",["2D","Colour"]],
+  ["b3",2,"1","PW of SVC — look for retrograde or torrential flow",["PW"]]
+ ]},
+ {id:"pda", n:6, t:"PDA view", s:"Ductal view (high parasternal)", steps:[
+  ["a",0,"a","2D for diameter; colour for flow — record absent flow to document closure",["2D","Colour"]],
+  ["b",0,"b","CW through ductus if patent",["CW"],1],
+  ["c",0,"c","PW through ductus if large / unrestrictive",["PW"],1],
+  ["d",0,"d","Simultaneous 2D + colour (side-by-side) clip",["2D","Colour"]]
+ ]},
+ {id:"bpa", n:7, t:"Branch PAs & crab view", s:"“Moustache” view and pulmonary veins", steps:[
+  ["a",0,"a","Branch PAs, 2D greyscale and colour",["2D","Colour"]],
+  ["a1",1,"i","PW in MPA, LPA and RPA",["PW"]],
+  ["b",0,"b","Crab view — low-Nyquist colour; PW at each pulmonary vein ostium where possible",["Colour","PW"]]
+ ]},
+ {id:"hus", n:8, t:"Head ultrasound Doppler", s:"Cerebral vasculature", steps:[
+  ["a",0,"a","Transtemporal view — MCA Doppler",["PW"]],
+  ["b",0,"b","Sagittal view, colour over ACA",["Colour"]],
+  ["b1",1,"i","PW of ACA",["PW"]],
+  ["c",0,"c","Coronal view, colour over circle of Willis",["Colour"]],
+  ["c1",1,"i","PW of ACA and MCA",["PW"]]
+ ]}
+];
+const COMFORT = [
+ ["music","Calming music playing (e.g. neo-classical piano)"],
+ ["family","Family present where possible"],
+ ["light","Lights dimmed"],
+ ["nurse","Timed with nursing cares"],
+ ["bundle","Baby securely bundled / contained"],
+ ["gel","Warm single-use gel (not a shared bottle)"],
+ ["doors","Incubator portholes kept closed"],
+ ["focus","Focused question defined — target ≤ 15–30 min"]
+];
+
+/* ---------- State (localStorage, guarded) ---------- */
+const KEY="tnecho_v1";
+function today(){const d=new Date();return new Date(d-d.getTimezoneOffset()*60000).toISOString().slice(0,10);}
+let S={f:{},c:{},chk:{},na:{},notes:{},comfort:{},timer:{start:0,acc:0,run:false}};
+function load(){try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r));}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+load();
+if(!S.f.date){S.f.date=today();}
+
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("on"),1800);}
+
+/* ---------- Tabs ---------- */
+function go(v){$$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));$$(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));
+ $(".fab").style.display=v==="protocol"?"flex":"none"; if(v==="report")buildReport(); if(v==="calc")calc(); window.scrollTo({top:0});}
+$$("nav button").forEach(b=>b.onclick=()=>go(b.dataset.v));
+function setHH(){document.documentElement.style.setProperty("--hh",$("#hdr").offsetHeight+"px");}
+addEventListener("resize",setHH);
+
+/* ---------- Bind simple fields ---------- */
+$$("[data-k]").forEach(el=>{const k=el.dataset.k;if(S.f[k]!=null)el.value=S.f[k];el.addEventListener("input",()=>{S.f[k]=el.value;save();if(["wt","hr","bp"].includes(k))calc();});});
+$$("[data-c]").forEach(el=>{const k=el.dataset.c;if(S.c[k]!=null)el.value=S.c[k];el.addEventListener("input",()=>{S.c[k]=el.value;save();calc();});});
+
+/* ---------- Comfort ---------- */
+$("#comfort").innerHTML=COMFORT.map(([k,t])=>`<li><input type="checkbox" id="cf_${k}" ${S.comfort[k]?"checked":""}><label for="cf_${k}">${t}</label></li>`).join("");
+COMFORT.forEach(([k])=>$("#cf_"+k).onchange=e=>{S.comfort[k]=e.target.checked;save();});
+
+/* ---------- Protocol render ---------- */
+const parents={}; // step id -> has children
+P.forEach(sec=>sec.steps.forEach((st,i)=>{const nx=sec.steps[i+1];if(nx&&nx[1]>st[1])parents[sec.id+"."+st[0]]=true;}));
+function render(){
+ $("#sections").innerHTML=P.map(sec=>`
+ <details class="sec" id="sec_${sec.id}" ${sec.n===1?"open":""}>
+  <summary><span class="n">${sec.n}</span><span class="t">${sec.t}<small>${sec.s}</small></span><span class="c" id="cnt_${sec.id}"></span></summary>
+  <div class="steps">${sec.steps.map(st=>{
+    const [id,lv,k,txt,tags,cond]=st, uid=sec.id+"."+id, isP=parents[uid];
+    return `<div class="step sub${lv} ${cond?"cond":""}" data-u="${uid}" ${isP?'data-parent="1"':""}>
+      ${isP?'<span style="width:22px;flex:0 0 22px"></span>':`<input type="checkbox" aria-label="${txt.replace(/"/g,"")}">`}
+      <div class="body"><span class="lbl"><span class="k">${k}.</span>${txt}</span>
+        ${(tags.length||cond)?`<div class="tags">${tags.map(t=>`<span class="tag">${t}</span>`).join("")}${cond?'<span class="tag if">if present</span>':""}</div>`:""}
+        ${isP?"":`<button class="nb">+ note</button><input class="note-in" placeholder="Measurement / comment">`}
+      </div>
+      ${isP?"":'<button class="na-btn" title="Not applicable / not obtained">N/A</button>'}
+    </div>`;}).join("")}
+  </div></details>`).join("");
+ $$(".step").forEach(row=>{
+  const u=row.dataset.u; if(row.dataset.parent)return;
+  const cb=row.querySelector("input[type=checkbox]"), ni=row.querySelector(".note-in");
+  cb.checked=!!S.chk[u]; row.classList.toggle("checked",cb.checked); row.classList.toggle("na",!!S.na[u]);
+  if(S.notes[u]){ni.value=S.notes[u];row.classList.add("shownote");}
+  cb.onchange=()=>{S.chk[u]=cb.checked;if(cb.checked)delete S.na[u];row.classList.toggle("checked",cb.checked);row.classList.remove("na");save();progress();
+    if(cb.checked&&!S.timer.run&&!S.timer.acc)toggleTimer();};
+  row.querySelector(".na-btn").onclick=()=>{S.na[u]=!S.na[u];if(S.na[u]){S.chk[u]=false;cb.checked=false;row.classList.remove("checked");}row.classList.toggle("na",!!S.na[u]);save();progress();};
+  row.querySelector(".nb").onclick=()=>{row.classList.toggle("shownote");if(row.classList.contains("shownote"))ni.focus();};
+  ni.oninput=()=>{S.notes[u]=ni.value;save();};
+ });
+ progress();
+}
+function leafIds(sec){return sec.steps.filter(st=>!parents[sec.id+"."+st[0]]).map(st=>sec.id+"."+st[0]);}
+function progress(){
+ let tot=0,done=0;
+ P.forEach(sec=>{const ids=leafIds(sec);const d=ids.filter(u=>S.chk[u]||S.na[u]).length;tot+=ids.length;done+=d;
+  const c=$("#cnt_"+sec.id); if(c)c.textContent=d+"/"+ids.length;
+  const el=$("#sec_"+sec.id); if(el)el.classList.toggle("done",d===ids.length);});
+ $("#progbar").style.width=(tot?done/tot*100:0)+"%";
+ $("#progtxt").textContent=`${done} / ${tot} steps · ${P.filter(s=>leafIds(s).every(u=>S.chk[u]||S.na[u])).length}/${P.length} views complete`;
+ applyHide();
+}
+function applyHide(){const h=$("#hideDone").checked;$$(".step").forEach(r=>{if(r.dataset.parent)return;r.style.display=(h&&(r.classList.contains("checked")||r.classList.contains("na")))?"none":"";});}
+$("#hideDone").onchange=applyHide;
+function nextStep(){
+ for(const sec of P){for(const u of leafIds(sec)){if(!S.chk[u]&&!S.na[u]){
+   const d=$("#sec_"+sec.id);d.open=true;const r=$(`.step[data-u="${u}"]`);
+   r.scrollIntoView({behavior:"smooth",block:"center"});r.animate([{background:"#cfe6f7"},{background:""}],{duration:1200});return;}}}
+ toast("All steps complete ✓");
+}
+
+/* ---------- Timer ---------- */
+function elapsed(){return S.timer.acc+(S.timer.run?Date.now()-S.timer.start:0);}
+function tick(){const s=Math.floor(elapsed()/1000),m=Math.floor(s/60);const t=$("#timer");
+ t.textContent=String(m).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+ t.classList.toggle("t15",m>=15&&m<30);t.classList.toggle("t30",m>=30);}
+function toggleTimer(){if(S.timer.run){S.timer.acc=elapsed();S.timer.run=false;}else{S.timer.start=Date.now();S.timer.run=true;}save();tick();toast(S.timer.run?"Timer running":"Timer paused");}
+let lp; const T=$("#timer");
+T.addEventListener("pointerdown",()=>{lp=setTimeout(()=>{lp=null;S.timer={start:0,acc:0,run:false};save();tick();toast("Timer reset");},700);});
+T.addEventListener("pointerup",()=>{if(lp){clearTimeout(lp);lp=null;toggleTimer();}});
+T.addEventListener("pointerleave",()=>{if(lp){clearTimeout(lp);lp=null;}});
+setInterval(tick,1000);tick();
+
+/* ---------- Calculators ---------- */
+const num=v=>{const x=parseFloat(v);return isFinite(x)?x:null;};
+const f1=x=>x==null?"—":(Math.round(x*10)/10).toString(), f2=x=>x==null?"—":x.toFixed(2);
+let R={}; // results for report
+function output(d,vti,hr,wt){if(d==null||vti==null||hr==null||wt==null||wt<=0)return null;const r=d/20;return vti*Math.PI*r*r*hr/wt;} // mL/kg/min
+function calc(){
+ const wt=num(S.f.wt), hrS=num(S.f.hr), c=S.c; R={};
+ const set=(id,h)=>{$("#"+id).innerHTML=h;};
+ const lhr=num(c.lhr)??hrS, rhr=num(c.rhr)??hrS;
+ const lvo=output(num(c.lvotd),num(c.lvti),lhr,wt);
+ set("o-lvo",lvo==null?"Needs diameter, VTI, HR and weight<small>VTI × π(d/2)² × HR ÷ weight</small>":`${Math.round(lvo)} mL/kg/min<small>HR ${lhr} · wt ${wt} kg</small>`); if(lvo!=null)R.LVO=Math.round(lvo)+" mL/kg/min";
+ const rvo=output(num(c.rvotd),num(c.rvti),rhr,wt);
+ set("o-rvo",rvo==null?"Needs diameter, VTI, HR and weight<small>VTI × π(d/2)² × HR ÷ weight</small>":`${Math.round(rvo)} mL/kg/min<small>HR ${rhr} · wt ${wt} kg</small>`); if(rvo!=null)R.RVO=Math.round(rvo)+" mL/kg/min";
+ const la=num(c.la),ao=num(c.ao); const laao=(la&&ao)?la/ao:null;
+ set("o-laao",laao==null?"—":f2(laao)); if(laao!=null)R["LA:Ao"]=f2(laao)+` (LA ${la} / Ao ${ao} mm)`;
+ const dd=num(c.lvidd),ds=num(c.lvids); const fs=(dd&&ds!=null&&dd>0)?(dd-ds)/dd*100:null;
+ set("o-fs",fs==null?"—":f1(fs)+" %"); if(fs!=null)R.FS=f1(fs)+` % (LVIDd ${dd} / LVIDs ${ds} mm)`;
+ const pa=num(c.paat),rv=num(c.rvet); const pr=(pa&&rv)?pa/rv:null;
+ set("o-paat",pr==null?"—":f2(pr)+`<small>PAAT ${pa} ms · RVET ${rv} ms</small>`); if(pr!=null)R["PAAT:RVET"]=f2(pr)+` (PAAT ${pa} ms)`;
+ const trv=num(c.trv),rap=num(c.rap)??0,sbp=num(c.sbp)??num((S.f.bp||"").split("/")[0]);
+ if(trv!=null){const g=4*trv*trv,rvsp=g+rap;let h=`RVSP ≈ ${Math.round(rvsp)} mmHg<small>4V² = ${Math.round(g)} + RAP ${rap}</small>`;let rs=`${Math.round(rvsp)} mmHg (TR ${trv} m/s, RAP ${rap})`;
+  if(sbp){const ratio=rvsp/sbp;h+=`<small>RVSP : systemic SBP = ${f2(ratio)} (${ratio<0.5?"< ½ systemic":ratio<=1?"½ – systemic":"supra-systemic"})</small>`;rs+=`; RVSP:SBP ${f2(ratio)}`;}
+  set("o-rvsp",h);R.RVSP=rs;} else set("o-rvsp","—");
+ const pd=num(c.pdad),pv=num(c.pdav),pe=num(c.pdaed),dir=c.pdadir||"";
+ if(pd!=null||pv!=null||dir){let parts=[];if(pd!=null)parts.push(`${pd} mm`+(wt?` (${f2(pd/wt)} mm/kg)`:""));if(dir)parts.push(dir);
+  if(pv!=null)parts.push(`peak ${pv} m/s (gradient ≈ ${Math.round(4*pv*pv)} mmHg)`);if(pe!=null)parts.push(`EDV ${pe} m/s`);
+  if(pv&&pe!=null&&pv>0)parts.push(`peak:EDV ratio ${f1(pv/pe)}`);
+  set("o-pda",parts.join("<br>"));R.PDA=parts.join("; ");} else set("o-pda","—");
+ const ta=num(c.tapse),eda=num(c.rveda),esa=num(c.rvesa);
+ { let p=[];if(ta!=null)p.push(`TAPSE ${ta} mm`);if(eda&&esa!=null&&eda>0)p.push(`RV FAC ${f1((eda-esa)/eda*100)} %`);
+  set("o-rv",p.length?p.join("<br>"):"—");if(p.length)R["RV function"]=p.join("; "); }
+ const me=num(c.me),ma=num(c.ma),ep=num(c.ep);
+ { let p=[];if(me&&ma)p.push(`E/A ${f2(me/ma)}`);if(me&&ep)p.push(`E/e′ ${f1(me/ep)}`);
+  set("o-dia",p.length?p.join(" · "):"—");if(p.length)R.Diastolic=p.join("; "); }
+ const psv=num(c.psv),edv=num(c.edv),mv=num(c.mv),vs=c.dvsl||"ACA";
+ { let p=[];if(psv&&edv!=null){p.push(`RI ${f2((psv-edv)/psv)}`);if(edv<0)p.push("reversed diastolic flow");else if(edv===0)p.push("absent diastolic flow");}
+  if(psv&&edv!=null&&mv)p.push(`PI ${f2((psv-edv)/mv)}`);
+  set("o-ri",p.length?`${vs}: `+p.join(" · "):"—");if(p.length)R[vs+" Doppler"]=p.join("; "); }
+}
+
+/* ---------- Report ---------- */
+function reportText(){
+ const f=S.f,L=[],line=(k,v)=>{if(v&&String(v).trim())L.push(`${k}: ${v}`);};
+ L.push("TARGETED NEONATAL ECHOCARDIOGRAPHY (TnECHO) REPORT","=".repeat(48));
+ line("Study ID",f.pid);line("Date",f.date);line("GA at birth",f.ga);line("Day of life",f.dol);line("Weight",f.wt&&f.wt+" kg");
+ line("HR",f.hr&&f.hr+" bpm");line("BP",f.bp);line("SpO2 pre/post",f.sat);line("Operator",f.op);line("Reviewer",f.rev);
+ const m=Math.round(elapsed()/60000); if(m)line("Scan duration",m+" min");
+ const sec=(t,v)=>{if(v&&v.trim()){L.push("",t.toUpperCase(),v.trim());}};
+ sec("Indication",f.ind);sec("Pertinent clinical findings",f.clin);
+ if(Object.keys(R).length){L.push("","KEY MEASUREMENTS");Object.entries(R).forEach(([k,v])=>L.push(`- ${k}: ${v}`));}
+ const notes=[];P.forEach(s=>s.steps.forEach(st=>{const u=s.id+"."+st[0];if(S.notes[u]&&S.notes[u].trim())notes.push(`- [${s.t.replace(/ \(.*\)/,"")} ${st[0]}] ${S.notes[u].trim()}`);}));
+ if(notes.length){L.push("","STEP NOTES");L.push(...notes);}
+ const any=["r_ven","r_atr","r_av","r_vent","r_va","r_art","r_oth"].some(k=>f[k]&&f[k].trim());
+ if(any){L.push("","MAIN TnECHO FINDINGS");
+  [["Venous return","r_ven"],["Atria / atrial septum","r_atr"],["AV valves","r_av"],["Ventricles","r_vent"],["VA segment / outflows","r_va"],["Arterial circulation","r_art"],["Other","r_oth"]]
+  .forEach(([t,k])=>{if(f[k]&&f[k].trim())L.push(`- ${t}: ${f[k].trim()}`);});}
+ sec("Impression (physiological synthesis)",f.r_imp);sec("Management recommendations",f.r_mgmt);sec("Follow-up",f.r_fu);
+ // completeness
+ const missed=[];P.forEach(s=>{const ids=leafIds(s);const nd=ids.filter(u=>!S.chk[u]&&!S.na[u]);if(nd.length===ids.length)missed.push(s.t);});
+ const na=Object.keys(S.na).filter(k=>S.na[k]).length;
+ L.push("","PROTOCOL COMPLETENESS",$("#progtxt").textContent+(na?` (${na} marked N/A)`:""));
+ if(missed.length)L.push("Views not acquired: "+missed.join(", "));
+ L.push("","Generated with TnECHO Protocol app v"+APP_VERSION+" (adapted from NeoCardio Lab TnECHO protocol). Verify all values.");
+ return L.join("\n");
+}
+function buildReport(){calc();$("#reportOut").textContent=reportText();}
+function copyReport(){const t=$("#reportOut").textContent;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast("Report copied")).catch(()=>{const r=document.createRange();r.selectNode($("#reportOut"));getSelection().removeAllRanges();getSelection().addRange(r);try{document.execCommand("copy");toast("Report copied");}catch(e){toast("Select and copy manually");}});}
+function downloadReport(){const b=new Blob([$("#reportOut").textContent],{type:"text/plain"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`TnECHO_${(S.f.pid||"study").replace(/\W+/g,"_")}_${S.f.date||""}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+
+/* ---------- Reset ---------- */
+function resetAll(){if(!confirm("Clear all data for a new study?"))return;S={f:{date:today()},c:{},chk:{},na:{},notes:{},comfort:{},timer:{start:0,acc:0,run:false}};save();location.reload();}
+
+/* ---------- Init ---------- */
+render();calc();setHH();go("study");
+$("#ver").textContent="Version "+APP_VERSION;
+if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}
+</script>
+</body>
+</html>
