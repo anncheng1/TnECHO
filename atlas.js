@@ -118,17 +118,18 @@ const ATLAS = [
 
 /* Probe-movement sequences on an infant chest (screen coordinates: patient's left = screen right).
    rot = marker direction in degrees (0 → baby's left, -90 → head, -135 → right shoulder, -45 → left shoulder). */
-const PROBE = {
-  plax:    [{ x: 222, y: 210, rot: -135, l: "Left of the lower sternum, perpendicular to the chest; marker to the baby's right shoulder." }, { x: 222, y: 210, rot: -135, tilt: "↗", l: "Tilt the beam toward the left shoulder → RV outflow and pulmonary valve." }, { x: 222, y: 210, rot: -135, tilt: "↘", l: "Tilt toward the right hip → RV inflow and tricuspid valve." }],
-  psax_av: [{ x: 222, y: 210, rot: -135, l: "Start from PLAX." }, { x: 222, y: 210, rot: -45, l: "Rotate 90° clockwise — marker to the baby's left shoulder." }, { x: 222, y: 210, rot: -45, tilt: "↖", l: "Angle toward the right shoulder (base) → aortic valve level." }],
-  psax_pm: [{ x: 222, y: 210, rot: -45, l: "PSAX, marker to the left shoulder." }, { x: 222, y: 210, rot: -45, tilt: "↘", l: "Sweep toward the left hip: mitral valve → papillary muscles → apex." }],
-  a4c:     [{ x: 262, y: 258, rot: 0, beam: -140, l: "At the apex (below the left nipple), beam toward the right shoulder, marker to the baby's left." }, { x: 268, y: 262, rot: 0, beam: -140, l: "Slide laterally if the image is foreshortened (move to the true apex)." }],
-  a5c:     [{ x: 262, y: 258, rot: 0, beam: -140, l: "From A4C…" }, { x: 262, y: 258, rot: 10, beam: -140, tilt: "⤴", l: "Tilt anteriorly with slight clockwise rotation → LVOT and aortic valve appear." }],
-  sub:     [{ x: 200, y: 318, rot: 0, beam: -90, l: "Below the xiphoid, probe flat, marker to the baby's left." }, { x: 200, y: 318, rot: 0, beam: -90, tilt: "⤴", l: "Tilt the beam up toward the anterior chest until the atria appear." }, { x: 200, y: 318, rot: -90, beam: -90, l: "Rotate 90° (marker to head) for IVC and abdominal aorta." }],
-  ductal:  [{ x: 214, y: 150, rot: -90, l: "High left sternal border, fully sagittal, marker to the head." }, { x: 218, y: 150, rot: -90, tilt: "↔", l: "Rock gently side to side to find the duct." }],
-  arch:    [{ x: 214, y: 150, rot: -90, l: "Start in the ductal view." }, { x: 190, y: 146, rot: -80, tilt: "↙", l: "Slide just right of the sternum, rotate slightly clockwise and angle leftward." }],
-  highps:  [{ x: 214, y: 140, rot: 0, l: "Upper left sternal edge, transverse, marker to the baby's left." }, { x: 214, y: 140, rot: 0, tilt: "⤴", l: "Angle slightly superiorly to open the PA bifurcation." }]
+const PROBE = { // x,y in pixels of atlas/baby.jpg (1254-px master); rot = marker direction (deg, screen); beam = beam direction; rock = tilting motion
+  plax:    [{ x: 505, y: 860, rot: -135, l: "Left of the lower sternum, perpendicular to the chest; marker (yellow tab) to the baby's right shoulder." }, { x: 505, y: 860, rot: -135, tilt: "↗", rock: 1, l: "Tilt the beam toward the left shoulder → RV outflow and pulmonary valve." }, { x: 505, y: 860, rot: -135, tilt: "↘", rock: 1, l: "Tilt toward the right hip → RV inflow and tricuspid valve." }],
+  psax_av: [{ x: 505, y: 860, rot: -135, l: "Start from PLAX." }, { x: 505, y: 860, rot: -45, l: "Rotate 90° clockwise — marker to the baby's left shoulder." }, { x: 505, y: 860, rot: -45, tilt: "↖", rock: 1, l: "Angle toward the right shoulder (base) → aortic valve level." }],
+  psax_pm: [{ x: 505, y: 860, rot: -45, l: "PSAX, marker to the left shoulder." }, { x: 505, y: 860, rot: -45, tilt: "↘", rock: 1, l: "Sweep toward the left hip: mitral valve → papillary muscles → apex." }],
+  a4c:     [{ x: 655, y: 885, rot: 0, beam: -135, l: "At the apex (just below the left nipple), beam toward the right shoulder, marker to the baby's left." }, { x: 675, y: 900, rot: 0, beam: -135, l: "Slide laterally/inferiorly if the image is foreshortened — find the true apex." }],
+  a5c:     [{ x: 655, y: 885, rot: 0, beam: -135, l: "From A4C…" }, { x: 655, y: 885, rot: 12, beam: -135, tilt: "⤴", rock: 1, l: "Tilt anteriorly with slight clockwise rotation → LVOT and aortic valve appear." }],
+  sub:     [{ x: 437, y: 1010, rot: 0, beam: -90, l: "Below the xiphoid, probe flat, marker to the baby's left." }, { x: 437, y: 1010, rot: 0, beam: -90, tilt: "⤴", rock: 1, l: "Tilt the beam up toward the anterior chest until the atria appear." }, { x: 437, y: 1010, rot: -90, beam: -90, l: "Rotate 90° (marker to the head) for the IVC and abdominal aorta." }],
+  ductal:  [{ x: 495, y: 665, rot: -90, l: "High left sternal border, fully sagittal, marker to the head." }, { x: 498, y: 665, rot: -90, tilt: "↔", rock: 1, l: "Rock gently side to side to find the duct." }],
+  arch:    [{ x: 495, y: 665, rot: -90, l: "Start in the ductal view." }, { x: 405, y: 650, rot: -80, tilt: "↙", l: "Slide just right of the sternum, rotate slightly clockwise and angle leftward." }],
+  highps:  [{ x: 495, y: 650, rot: 0, l: "Upper left sternal edge, transverse, marker to the baby's left." }, { x: 495, y: 650, rot: 0, tilt: "⤴", rock: 1, l: "Angle slightly superiorly to open the PA bifurcation." }]
 };
+const PSPRITE = { ax: 10.3, ay: 13.6, mAng: -52 }; // face anchor (% of sprite) and marker direction in the sprite
 const ATLAS_IMGS = {
   plax: { ref: [N("3.6", "PLAX with RV outflow and inflow tilts")], na: [N("7.5", "Normal vs volume-loaded LA/LV (large PDA)"), N("7.4", "M-mode LA:Ao and LVEDD")] },
   psax_av: { ref: [N("3.7", "PSAX sweep: aortic valve → mitral → papillary")], na: [N("8.4", "Pulmonary insufficiency on colour")] },
@@ -182,20 +183,19 @@ function atlasSVG(v) {
    </g><path d="${sector}" fill="none" stroke="#555" stroke-width="1"/>
    <circle cx="222" cy="12" r="4" fill="#ffb300"/><text x="352" y="350" class="anote">schematic · not to scale</text></svg>`;
 }
-function chestSVG(st, view) {
-  const r = st.rot, bx = st.beam;
-  return `<svg viewBox="0 0 400 380" class="chest">
-   <path d="M120 40 Q200 20 280 40 L330 70 Q350 80 352 110 L340 360 L60 360 L48 110 Q50 80 70 70 Z" fill="#f3e1d3" stroke="#d2b8a4" stroke-width="2"/>
-   <circle cx="200" cy="96" r="7" fill="none" stroke="#c9a68c" stroke-width="2"/><text x="200" y="78" class="cl">notch</text>
-   <line x1="200" y1="104" x2="200" y2="285" stroke="#d6bba6" stroke-width="10" stroke-linecap="round"/><path d="M192 288 L200 304 L208 288 Z" fill="#d6bba6"/>
-   <circle cx="135" cy="200" r="5" fill="#d9a48d"/><circle cx="265" cy="200" r="5" fill="#d9a48d"/>
-   <text x="100" y="60" class="cl">R shoulder</text><text x="300" y="60" class="cl">L shoulder</text><text x="70" y="352" class="cl">baby's right</text><text x="330" y="352" class="cl">baby's left</text>
-   <g class="probe" style="transform:translate(${st.x}px,${st.y}px) rotate(${r}deg)">
-     ${bx != null ? `<path d="M0 0 L120 -36 L120 36 Z" fill="rgba(29,111,165,.18)" transform="rotate(${bx - r})"/>` : ""}
-     <rect x="-26" y="-9" width="52" height="18" rx="7" fill="#263238"/><circle cx="22" cy="0" r="5" fill="#ffb300"/></g>
-   ${st.tilt ? `<text x="${st.x + 26}" y="${st.y - 22}" class="tilt">${st.tilt}</text>` : ""}
-  </svg>`;
+function fanPath(st) {
+  if (st.beam == null) return ""; const L = 330, hw = 22 * Math.PI / 180, b = st.beam * Math.PI / 180;
+  const p = a => `${st.x + L * Math.cos(a)},${st.y + L * Math.sin(a)}`;
+  return `<path d="M${st.x},${st.y} L${p(b - hw)} A${L} ${L} 0 0 1 ${p(b + hw)} Z" fill="rgba(41,182,246,.28)" stroke="rgba(41,182,246,.7)" stroke-width="3"/>`;
 }
+const pct = v => (v / 12.54).toFixed(2) + "%";
+function chestHTML(st) {
+  return `<div class="pstage"><img src="atlas/baby.jpg" class="pbg" alt="Infant chest with landmarks">
+   <svg class="pfan" viewBox="0 0 1254 1254">${fanPath(st)}</svg>
+   <div class="pw" style="left:${pct(st.x)};top:${pct(st.y)};transform:rotate(${st.rot - PSPRITE.mAng}deg)"><div class="prock${st.rock ? " on" : ""}"><img src="atlas/probe.png" class="psp" alt="probe" style="transform:translate(-${PSPRITE.ax}%,-${PSPRITE.ay}%)"></div></div>
+   <div class="ptilt" style="left:${pct(st.x + 70)};top:${pct(st.y - 150)}">${st.tilt || ""}</div></div>`;
+}
+
 function renderAtlasList() {
   const T = trainee();
   $("#atlasBody").innerHTML = `<p class="sub" style="margin:0 0 10px">Tap a view. Each has a labelled diagram (tap a structure to learn about it), an animation of the probe movement, real reference images, and normal-vs-abnormal examples.</p>
@@ -215,7 +215,7 @@ function openAtlas(id) {
       <div class="achips">${vStructs(v).map(st => `<button data-s="${st.id}">${st.label}</button>`).join("")}</div></div>
     <div data-pane="probe" hidden><div id="chestWrap"></div><div class="pstep" id="pstep"></div>
       <div class="btns"><button class="btn ghost" onclick="probeStep(-1)">‹</button><button class="btn" id="pplay" onclick="probePlay()">▶ Play</button><button class="btn ghost" onclick="probeStep(1)">›</button></div>
-      <p class="sub" style="font-size:12px;margin-top:8px">Orange dot = probe marker. Shaded fan = beam direction. Arrows show tilt.</p></div>
+      <p class="sub" style="font-size:12px;margin-top:8px">Yellow tab = probe marker. Blue fan = beam direction. A rocking probe = tilt the beam in the arrow direction.</p></div>
     <div data-pane="imgs" hidden>
       ${im.unit ? `<h4>Unit diagram</h4><figure class="aimg" onclick="atlasZoom('${im.unit[0]}','${im.unit[1]}','unit','')"><img src="${im.unit[0]}" loading="lazy" alt=""><figcaption>${im.unit[1]}</figcaption></figure>` : ""}
       <h4>Reference</h4>${im.ref.map(m => atlasImg(m)).join("")}
@@ -246,10 +246,11 @@ function selectStruct(sid) {
 function drawProbe() {
   const seq = PROBE[AT.id] || []; if (!seq.length) return;
   AT.step = (AT.step + seq.length) % seq.length; const st = seq[AT.step];
-  if (!$("#chestWrap .chest")) $("#chestWrap").innerHTML = chestSVG(st);
-  else { const g = $("#chestWrap .probe"); g.style.transform = `translate(${st.x}px,${st.y}px) rotate(${st.rot}deg)`; const t = $("#chestWrap .tilt"); if (t) t.remove();
-    const fan = g.querySelector("path"); if (fan && st.beam != null) fan.setAttribute("transform", `rotate(${st.beam - st.rot})`);
-    if (st.tilt) $("#chestWrap .chest").insertAdjacentHTML("beforeend", `<text x="${st.x + 26}" y="${st.y - 22}" class="tilt">${st.tilt}</text>`); }
+  const stage = $("#chestWrap .pstage");
+  if (!stage) $("#chestWrap").innerHTML = chestHTML(st);
+  else { const w = stage.querySelector(".pw"); w.style.left = pct(st.x); w.style.top = pct(st.y); w.style.transform = `rotate(${st.rot - PSPRITE.mAng}deg)`;
+    stage.querySelector(".prock").classList.toggle("on", !!st.rock); stage.querySelector(".pfan").innerHTML = fanPath(st);
+    const t = stage.querySelector(".ptilt"); t.textContent = st.tilt || ""; t.style.left = pct(st.x + 70); t.style.top = pct(st.y - 150); }
   $("#pstep").innerHTML = `<b>Step ${AT.step + 1} of ${seq.length}</b> — ${st.l}`;
   markTrainee(T => { T.probe[AT.id] = true; });
 }
