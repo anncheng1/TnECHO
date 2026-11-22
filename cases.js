@@ -223,7 +223,8 @@ function stepOptions(sel) {
 }
 function footHTML() {
   const r = VW.rec;
-  return `<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" ${r.inReport ? "checked" : ""} onchange="VW.rec.inReport=this.checked;saveRec()"> Include in PDF report</label>
+  return `<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" ${r.inReport ? "checked" : ""} onchange="VW.rec.inReport=this.checked;saveRec()"> Include in PDF</label>
+   <label style="display:flex;gap:6px;align-items:center">Image quality <select style="background:#1d2a35;color:#fff;border:1px solid #2e4050;border-radius:8px;padding:5px" onchange="VW.rec.q=this.value;saveRec()">${["", "Good", "Adequate", "Poor"].map(o => `<option ${o === (r.q || "") ? "selected" : ""} value="${o}">${o || "—"}</option>`).join("")}</select></label></div>
    <select style="margin-top:6px;width:100%;background:#1d2a35;color:#fff;border:1px solid #2e4050;border-radius:8px;padding:7px" onchange="VW.rec.step=this.value;saveRec();$('#mvT').textContent=stepLabel(this.value)">${stepOptions(r.step)}</select>
    <input type="text" placeholder="Caption (e.g. Day 3, large L→R PDA)" value="${esc(r.cap)}" oninput="VW.rec.cap=this.value;saveRec()">
    ${r.meas.length ? `<div style="margin-top:8px"><b>Measurements on this image</b>${r.meas.map((m, i) => `<div class="mrow"><span>${esc(m.label)}: <b>${m.value} ${m.unit}</b> <small style="color:#8aa">(${m.src})</small></span><button onclick="delMeas(${i})">✕</button></div>`).join("")}</div>` : ""}`;
@@ -497,6 +498,15 @@ async function downloadPDF(studyId) {
     }
     if (col === 1) y += rowH;
   }
+  // supervisor review
+  const rv = St.review;
+  if (rv && (rv.feedback || rv.quality || rv.meas)) {
+    need(20); y += 3; doc.setFont("helvetica", "bold"); doc.setFontSize(10.5); doc.setTextColor(15, 61, 94); doc.text("SUPERVISOR REVIEW", M, y); doc.line(M, y + 1.2, M + CW, y + 1.2); y += 6; doc.setTextColor(20);
+    doc.setFontSize(9.5); doc.setFont("helvetica", "normal");
+    const rl = [["Image quality", rv.quality], ["Views acquired", rv.views], ["Measurement accuracy", rv.meas], ["Interpretation", rv.interp]].filter(x => x[1]).map(x => `${x[0]}: ${x[1]}`).join("   ·   ");
+    if (rl) { const ls = doc.splitTextToSize(pdfSafe(rl), CW); doc.text(ls, M, y); y += ls.length * 4.4; }
+    if (rv.feedback) { const ls = doc.splitTextToSize(pdfSafe("Feedback: " + rv.feedback), CW); need(ls.length * 4.4); doc.text(ls, M, y); y += ls.length * 4.4; }
+  }
   // sign-off
   need(46); y += 4;
   doc.setDrawColor(150); doc.roundedRect(M, y, CW, 38, 2, 2);
@@ -506,6 +516,7 @@ async function downloadPDF(studyId) {
   row("Performed by:", f.op, y + 14, M + 4); row("Level:", f.level, y + 14, M + 94);
   row("Supervisor:", f.rev, y + 22, M + 4); row("Date:", f.date, y + 22, M + 94);
   row("Trainee signature:", "", y + 31, M + 4); row("Supervisor sign.:", "", y + 31, M + 94);
+  if (rv && rv.signed && rv.sig) { try { doc.addImage(rv.sig, "PNG", M + 125, y + 22, 34, 10); } catch (e) {} doc.setFontSize(7.5); doc.setTextColor(17, 99, 63); doc.text(pdfSafe(`Signed off by ${rv.name || ""} on ${rv.date || ""}`), M + 94, y + 36); doc.setTextColor(20); }
   // footers
   const n = doc.getNumberOfPages();
   for (let i = 1; i <= n; i++) { doc.setPage(i); doc.setFontSize(7.5); doc.setTextColor(120);

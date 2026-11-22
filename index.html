@@ -275,6 +275,71 @@ h3.grp{font-size:14px;color:var(--muted);margin:4px 2px 8px}
 .fab{display:none!important}
 .prow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:3px}
 .nextun{border:0;background:none;color:var(--pri2);font:600 12px system-ui;cursor:pointer;padding:2px 0;white-space:nowrap}
+/* ===== v3 ===== */
+.scanbtn{background:#2e9d6a;border:0;color:#fff;border-radius:18px;padding:7px 12px;font:700 13px system-ui;cursor:pointer;white-space:nowrap}
+.scanbtn.on{background:#fff;color:#0b1033}
+body:not(.scanning) .timer{display:none}
+#bnav button{font-size:10px;padding:4px 0}
+#bnav button span{font-size:20px}
+.scantabs{display:flex;gap:6px;margin:-4px 0 10px;align-items:center}
+.scantabs button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 4px;font:600 12.5px system-ui;cursor:pointer}
+.scantabs button.on{background:var(--pri2);color:#fff;border-color:var(--pri2)}
+.scantabs .x{flex:0 0 40px;color:var(--muted)}
+.mseg button{font-size:13px}
+.ah{font-size:19px;color:var(--pri);margin:2px 0 4px}
+.lvl{padding:0}.lvl>summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer}
+.lvl>summary::-webkit-details-marker{display:none}
+.lvl.signed{border-color:var(--ok)}
+.lic{font-size:26px;flex:0 0 34px;text-align:center}
+.lt{flex:1;min-width:0}.lt small{display:block;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px}.lt b{display:block;font-size:16px}
+.lbar{display:block;height:6px;background:var(--line);border-radius:3px;margin-top:6px;overflow:hidden}.lbar i{display:block;height:100%;background:var(--ok)}
+.lst{font:600 12.5px system-ui;color:var(--muted);white-space:nowrap}.lvl.signed .lst{color:var(--ok)}
+.lbody{padding:0 14px 14px}
+.lfc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}.lfc div{background:var(--bg);border-radius:8px;padding:8px;font-size:13px}.lfc small{display:block;color:var(--muted);font-size:11px}
+ul.crit{list-style:none;margin:0;padding:0}ul.crit li{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+ul.crit li>span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--chip);color:var(--muted);flex:0 0 22px;font-size:12px}
+ul.crit li.ok>span{background:var(--ok);color:#fff}ul.crit li>div{flex:1}ul.crit small{display:block;color:var(--muted);font-size:11.5px}
+ul.crit button{border:1px solid var(--pri2);background:none;color:var(--pri2);border-radius:8px;padding:5px 8px;font:600 11.5px system-ui;cursor:pointer;white-space:nowrap}
+.ltopics{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.ltopics button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:5px 10px;font-size:12px;cursor:pointer}.ltopics button.done{background:#e3f5ec;color:#11633f;border-color:#bfe6d1}
+.tlinks .studied.on{background:var(--ok);color:#fff;border-color:var(--ok)}
+.alist{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.alist button{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;text-align:left;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;gap:3px}
+.alist .amini svg{width:100%;height:auto;display:block;border-radius:8px}.alist b{font-size:13px;padding:0 4px}.alist small{color:var(--muted);font-size:11.5px;padding:0 4px 4px}
+.asvg{width:100%;height:auto;display:block;border-radius:10px;touch-action:manipulation}
+.asvg .ash{cursor:pointer}
+.alab{fill:#fff;font:700 13px system-ui;text-anchor:middle;dominant-baseline:middle;paint-order:stroke;stroke:#000;stroke-width:3px;pointer-events:none}
+.alab.on{fill:#4fc3f7}.anote{fill:#777;font:9px system-ui;text-anchor:end}
+.ap{padding:10px}.atabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;scrollbar-width:none}
+.atabs button{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:6px 12px;font:600 12.5px system-ui;cursor:pointer}.atabs button.on{background:var(--pri2);color:#fff;border-color:var(--pri2)}
+.abar{display:flex;align-items:center;gap:10px;justify-content:space-between;font-size:12.5px;color:var(--muted);margin:8px 0}.abar input{width:auto}
+.ainfo{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:14px;min-height:48px}
+.achips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.achips button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:5px 10px;font-size:12px;cursor:pointer}.achips button.on{background:#29b6f6;color:#00121c;border-color:#29b6f6}
+.chest{width:100%;max-width:420px;display:block;margin:0 auto}.chest .cl{font:11px system-ui;fill:#9a7b66;text-anchor:middle}.chest .tilt{font:700 26px system-ui;fill:#1d6fa5}
+.chest .probe{transition:transform .9s ease}
+.pstep{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:14px;margin:8px 0}
+figure.aimg{margin:0 0 12px;cursor:zoom-in}figure.aimg img,figure.aimg video{width:100%;border-radius:8px;background:#000;display:block}figure.aimg figcaption{font-size:12.5px;color:var(--muted);margin-top:4px}
+.ap h4{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:6px 0}
+.dlist{display:flex;flex-direction:column;gap:8px}
+.dlist button{display:flex;align-items:center;gap:10px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;color:var(--ink)}
+.dlist b{flex:1;font-size:14.5px}.dlist small{color:var(--muted);font-size:12px}.dst{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--chip);color:var(--pri2);font-weight:700}.dst.ok{background:var(--ok);color:#fff}
+.labwrap{background:#000;border-radius:10px;overflow:hidden;margin:8px 0}.labwrap canvas{width:100%;display:block;touch-action:none;cursor:crosshair}
+.labtask{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:14px;margin-bottom:8px}
+.labres.pass{border:2px solid var(--ok)}.labres.fail{border:2px solid var(--warn)}
+.labres tr.ok td:first-child{color:var(--ok)}.labres tr.bad td{color:var(--bad)}
+.mist b{color:var(--pri)}.mist p{margin:4px 0 8px;font-size:13.5px}
+.ccard{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;cursor:pointer;color:var(--ink);position:relative}
+.ccard b{display:block;font-size:15px;margin:3px 0}.ccard small{color:var(--muted);font-size:12.5px;display:block;padding-right:70px}
+.ctag{font:700 11px system-ui;background:var(--chip);color:var(--pri2);border-radius:6px;padding:2px 7px}
+.cst{position:absolute;right:12px;top:50%;transform:translateY(-50%);font:600 12.5px system-ui;color:var(--pri2)}.cst.pass{color:var(--ok)}
+.cimgs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.fbk{background:#fbe9e7;border-radius:8px;padding:8px 10px;font-size:13.5px}.fbk.ok{background:#e3f5ec}
+@media (prefers-color-scheme: dark){.fbk{background:#3a1d18}.fbk.ok{background:#123a29}}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.kpis div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12.5px;color:var(--muted)}
+.kpis b{display:block;font-size:22px;color:var(--pri)}.kpis small{display:block;font-size:11px}
+.vbar{display:flex;align-items:center;gap:8px;font-size:13px;margin:6px 0}.vbar span{width:80px}.vbar i{flex:1;height:10px;background:var(--line);border-radius:5px;overflow:hidden}.vbar em{display:block;height:100%;background:var(--pri2)}.vbar b{width:24px;text-align:right}
+.lrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.lrow div{flex:1}.lrow small{display:block;color:var(--muted);font-size:12px}.lrow .btn{padding:6px 10px;font-size:12px}
+.sigwrap{display:flex;flex-direction:column;gap:6px}.sigwrap canvas{width:100%;background:#fff;border:1px dashed #9aa;border-radius:8px;touch-action:none}
 @media print{#bnav,.scanbar,.vnav,.back{display:none!important}body{padding:0}}
 </style>
 </head>
@@ -284,52 +349,40 @@ h3.grp{font-size:14px;color:var(--muted);margin:4px 2px 8px}
     <img src="icon-192.png" alt="" class="hlogo">
     <div class="htit"><b>TnECHO</b><small id="hsub">Targeted neonatal echo</small></div>
     <div class="timer" id="timer" title="Scan timer — tap to start/pause, long-press to reset">00:00</div>
+    <button class="scanbtn" id="scanBtn" onclick="go('protocol')">▶ Scan</button>
     <button class="hbtn" onclick="go('about')" aria-label="About">ⓘ</button>
   </div>
 </header>
 
 <nav id="bnav" class="noprint">
-  <button data-v="home" class="on"><span>🏠</span>Home</button>
-  <button data-v="protocol"><span>🫀</span>Scan</button>
-  <button data-v="train"><span>📚</span>Learn</button>
-  <button data-v="calc"><span>🧮</span>Tools</button>
-  <button data-v="log"><span>📒</span>Logbook</button>
+  <button data-v="learn" class="on"><span>📚</span>Learn</button>
+  <button data-v="atlas"><span>🖼️</span>Atlas</button>
+  <button data-v="measure"><span>📏</span>Measure</button>
+  <button data-v="case"><span>🧩</span>Case Lab</button>
+  <button data-v="assess"><span>✅</span>Assess</button>
+  <button data-v="portfolio"><span>👤</span>Portfolio</button>
 </nav>
 
 <main>
-<!-- HOME -->
-<section class="view on" id="v-home">
-  <div class="card welcome" id="welcome">
-    <h2>👋 Welcome to TnECHO</h2>
-    <p class="sub">A step-by-step guide for targeted neonatal echo. Three steps for every baby:</p>
-    <ol class="flow">
-      <li><b>Baby details</b><span>ID, gestation, weight, why you're scanning</span></li>
-      <li><b>Scan view by view</b><span>Tick each step, add clips, tap 📖 to learn how</span></li>
-      <li><b>Measure & report</b><span>Values fill the calculators; download the PDF for your logbook</span></li>
-    </ol>
-    <button class="btn" onclick="dismissWelcome()">Got it</button>
-  </div>
-
-  <div class="card hero" id="heroCard"></div>
-
-  <div class="tiles">
-    <button onclick="newStudy()"><span>＋</span>New scan<small>Start a new baby</small></button>
-    <button onclick="pickMedia('','')"><span>📷</span>Add clip<small>Photo, video or upload</small></button>
-    <button onclick="go('train')"><span>📚</span>Learn<small>How to get each view</small></button>
-    <button onclick="go('log')"><span>📒</span>Logbook<small>Past scans & PDFs</small></button>
-  </div>
-
-  <div class="card">
-    <h2>Clips & images</h2>
-    <p class="sub">Tap a thumbnail to measure, read values from the machine's screen, or hide the baby's name.</p>
-    <div class="mgrid" id="mgrid"></div>
-    <p class="sub" style="margin-top:8px;font-size:12px">⚠ Echo screen photos often show the patient's name or IC — use <b>Redact</b> before adding an image to the report.</p>
-  </div>
-</section>
+<!-- LEARN -->
+<section class="view on" id="v-learn"><div id="learnBody"></div></section>
+<!-- ATLAS -->
+<section class="view" id="v-atlas"><div id="atlasBody"></div></section>
+<!-- MEASURE -->
+<section class="view" id="v-measure">
+  <div class="seg noprint mseg"><button class="on" onclick="go('measure')">🎯 Practice lab</button><button onclick="go('calc')">🧮 Calculators</button></div>
+  <div id="labBody" style="margin-top:12px"></div></section>
+<!-- CASE LAB -->
+<section class="view" id="v-case"><div id="caseBody"></div></section>
+<!-- ASSESSMENT -->
+<section class="view" id="v-assess"><div id="assessBody"></div></section>
+<!-- PORTFOLIO -->
+<section class="view" id="v-portfolio"><div id="pfBody"></div></section>
 
 <!-- STUDY (Baby details) -->
 <section class="view" id="v-study">
-  <button class="back" onclick="go('home')">‹ Home</button>
+  <div class="scantabs noprint"><button data-st="study" onclick="go('study')">👶 Details</button><button data-st="protocol" onclick="go('protocol')">🫀 Steps</button><button data-st="report" onclick="go('report')">📄 Report</button><button class="x" onclick="go(LASTTAB)" aria-label="Close scan">✕</button></div>
+
   <div class="card">
     <h2>Baby details</h2>
     <p class="sub">Stored only on this device. Use a bed or study ID, not the baby's name.</p>
@@ -358,6 +411,12 @@ h3.grp{font-size:14px;color:var(--muted);margin:4px 2px 8px}
       <textarea data-k="clin" placeholder="Respiratory support, FiO₂, inotropes, Hb, lactate, NT-proBNP…"></textarea></label>
   </details>
 
+  <div class="card">
+    <h2>Clips & images for this scan</h2>
+    <div class="btns noprint"><button class="btn ghost" onclick="pickMedia('','photo')">📷 Photo</button><button class="btn ghost" onclick="pickMedia('','video')">🎥 Video</button><button class="btn ghost" onclick="pickMedia('','upload')">⬆ Upload</button></div>
+    <div class="mgrid" id="mgrid"></div>
+    <p class="sub" style="margin-top:8px;font-size:12px">⚠ Echo screen photos often show the patient's name or IC — use <b>Redact</b> before adding an image to the report.</p>
+  </div>
   <div class="btns noprint">
     <button class="btn big" onclick="go('protocol')">Start scanning →</button>
   </div>
@@ -365,6 +424,7 @@ h3.grp{font-size:14px;color:var(--muted);margin:4px 2px 8px}
 
 <!-- PROTOCOL -->
 <section class="view" id="v-protocol">
+  <div class="scantabs noprint"><button data-st="study" onclick="go('study')">👶 Details</button><button data-st="protocol" onclick="go('protocol')">🫀 Steps</button><button data-st="report" onclick="go('report')">📄 Report</button><button class="x" onclick="go(LASTTAB)" aria-label="Close scan">✕</button></div>
   <div class="scanbar">
     <div class="seg noprint" id="modeSeg"><button data-m="beginner">🌱 Beginner</button><button data-m="full">Full protocol</button></div>
     <div class="prog"><i id="progbar"></i></div>
@@ -385,33 +445,10 @@ h3.grp{font-size:14px;color:var(--muted);margin:4px 2px 8px}
   </div>
 </section>
 
-<!-- LOGBOOK -->
-<section class="view" id="v-log">
-  <div class="card">
-    <h2>Echo logbook</h2>
-    <p class="sub">Every study is saved here automatically. Open one to continue, or download its PDF report for your training logbook.</p>
-    <div class="btns noprint">
-      <button class="btn" onclick="newStudy()">＋ New study</button>
-      <button class="btn ghost" onclick="exportCSV()">⬇ Logbook summary (CSV)</button>
-    </div>
-    <div class="logstats" id="logstats"></div>
-  </div>
-  <div id="loglist"></div>
-  <p class="sub" id="storageInfo" style="font-size:12px;color:var(--muted)"></p>
-</section>
-
 <!-- TRAINING -->
 <section class="view" id="v-train">
-  <div class="card path noprint">
-    <h2>🌱 New to neonatal echo? Start here</h2>
-    <div class="pathrow">
-      <button onclick="tcat='Windows & probe position';$('#tsearch').value='';renderTrain();$('#tlist').scrollIntoView({block:'start'})"><b>1</b>Where to put the probe</button>
-      <button onclick="tcat='LV systolic';$('#tsearch').value='';renderTrain();$('#tlist').scrollIntoView({block:'start'})"><b>2</b>Is the heart squeezing well?</button>
-      <button onclick="tcat='PDA';$('#tsearch').value='';renderTrain();$('#tlist').scrollIntoView({block:'start'})"><b>3</b>Assessing a PDA</button>
-      <button onclick="tcat='Pulmonary haemodynamics';$('#tsearch').value='';renderTrain();$('#tlist').scrollIntoView({block:'start'})"><b>4</b>High lung pressure (PPHN)</button>
-      <button onclick="go('approach')"><b>5</b>Putting it together</button>
-    </div>
-  </div>
+  <button class="back" onclick="go('learn')">‹ Learn</button>
+  <div class="card noprint" id="tfilter" style="display:none"></div>
   <div class="card noprint" style="margin-bottom:10px">
     <h2>Clips & measurements training</h2>
     <p class="sub">Annotated images from the ASE 2024 TNE guideline and the NPE Teaching Manual (2019): probe position, clip to acquire, how to measure, normal values and pitfalls. Tap an image to enlarge; swipe to browse.</p>
@@ -431,6 +468,7 @@ h3.grp{font-size:14px;color:var(--muted);margin:4px 2px 8px}
 
 <!-- CALCULATORS -->
 <section class="view" id="v-calc">
+  <div class="seg noprint mseg" style="margin-bottom:12px"><button onclick="go('measure')">🎯 Practice lab</button><button class="on" onclick="go('calc')">🧮 Calculators</button></div>
   <p class="sub" style="color:var(--muted);font-size:13px;margin:0 0 10px">Weight and heart rate come from Baby details. Values you measure on images fill in here automatically.</p>
   <h3 class="grp">⭐ Key calculators</h3>
   <div class="calc">
@@ -535,7 +573,8 @@ h3.grp{font-size:14px;color:var(--muted);margin:4px 2px 8px}
 
 <!-- REPORT -->
 <section class="view" id="v-report">
-  <button class="back" onclick="go('protocol')">‹ Back to scan</button>
+  <div class="scantabs noprint"><button data-st="study" onclick="go('study')">👶 Details</button><button data-st="protocol" onclick="go('protocol')">🫀 Steps</button><button data-st="report" onclick="go('report')">📄 Report</button><button class="x" onclick="go(LASTTAB)" aria-label="Close scan">✕</button></div>
+
   <div class="card noprint">
     <h2>Main TnECHO findings</h2>
     <p class="sub">Organised segmentally: venous returns → atria → AV connections → ventricles → VA segment → arterial circulation.</p>
@@ -568,7 +607,7 @@ h3.grp{font-size:14px;color:var(--muted);margin:4px 2px 8px}
 
 <!-- APPROACH -->
 <section class="view" id="v-approach">
-  <button class="back" onclick="go('train')">‹ Learn</button>
+  <button class="back" onclick="go('learn')">‹ Learn</button>
   <div class="card">
     <h2>Approach to neonatal haemodynamic evaluation</h2>
     <ol class="app">
@@ -593,7 +632,7 @@ h3.grp{font-size:14px;color:var(--muted);margin:4px 2px 8px}
 
 <!-- ABOUT -->
 <section class="view" id="v-about">
-  <button class="back" onclick="go('home')">‹ Home</button>
+  <button class="back" onclick="go(LASTTAB)">‹ Back</button>
   <div class="card">
     <h2>About</h2>
     <p>This app is a bedside checklist built on the <b>TnECHO Echocardiography Protocol</b> published by NeoCardio Lab (Montreal Children's Hospital, Dr G. Altit). Step wording is paraphrased; refer to the original protocol and its PDF for full detail and images.</p>
@@ -641,7 +680,7 @@ h3.grp{font-size:14px;color:var(--muted);margin:4px 2px 8px}
 <script src="training.js"></script>
 
 <script>
-const APP_VERSION = "2.1.0";
+const APP_VERSION = "3.0.0";
 /* ---------- Protocol data ----------
    Each step: [id, level, key, text, tags[], conditional?]
    Tags: 2D, Colour, PW, CW, M-mode, TDI, 3D, Sweep, Zoom
@@ -800,9 +839,16 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("on"),1800);}
 
 /* ---------- Tabs ---------- */
-const NAVOF={home:"home",study:"home",about:"home",protocol:"protocol",report:"protocol",train:"train",approach:"train",calc:"calc",log:"log"};
-function go(v){$$("#bnav button").forEach(b=>b.classList.toggle("on",b.dataset.v===NAVOF[v]));$$(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));
- $(".fab").style.display=v==="protocol"?"flex":"none"; if(v==="report")buildReport(); if(v==="calc")calc(); if(v==="train")renderTrain(); if(v==="home")renderHome(); if(v==="protocol")setTimeout(setHH,0); window.scrollTo({top:0});}
+const NAVOF={learn:"learn",train:"learn",approach:"learn",atlas:"atlas",measure:"measure",calc:"measure",case:"case",assess:"assess",portfolio:"portfolio"};
+const SCANV=["study","protocol","report"]; let LASTTAB="learn";
+function go(v){ if(v==="log")v="portfolio"; if(v==="home")v="learn";
+ if(NAVOF[v]===v)LASTTAB=v;
+ $$("#bnav button").forEach(b=>b.classList.toggle("on",b.dataset.v===NAVOF[v]));$$(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));
+ const sc=SCANV.includes(v); document.body.classList.toggle("scanning",sc); $("#scanBtn").classList.toggle("on",sc);
+ $$(".scantabs button[data-st]").forEach(b=>b.classList.toggle("on",b.dataset.st===v));
+ if(v==="report")buildReport(); if(v==="calc")calc(); if(v==="train")renderTrain(); if(v==="protocol")setTimeout(setHH,0);
+ const R2={learn:"renderLearn",atlas:"renderAtlasList",measure:"renderMeasure",case:"renderCases",assess:"renderAssess",portfolio:"renderPortfolio"}[v];
+ if(R2&&window[R2])window[R2](); window.scrollTo({top:0});}
 $$("#bnav button").forEach(b=>b.onclick=()=>go(b.dataset.v));
 function setHH(){document.documentElement.style.setProperty("--hh",$("#hdr").offsetHeight+"px");}
 addEventListener("resize",setHH);
@@ -1025,7 +1071,7 @@ function cardHTML(t){
    ${t.formula?`<div class="fx">${t.formula}</div>`:""}
    ${t.npe?`<h4>From the NPE manual</h4><ul class="npel">${t.npe.map(x=>`<li>${x}</li>`).join("")}</ul>`:""}
    <h4>Pitfalls</h4><ul>${t.pit.map(x=>`<li>${x}</li>`).join("")}</ul>
-   <div class="tlinks noprint">${t.calc?`<button onclick="gotoCalc('${t.calc}')">🧮 Calculator</button>`:""}${(t.step||[]).length?`<button onclick="gotoStep('${t.step[0]}')">✓ Protocol step</button>`:""}</div>
+   <div class="tlinks noprint"><button class="studied ${trainee().studied[t.id]?"on":""}" onclick="toggleStudied('${t.id}',this)">${trainee().studied[t.id]?"✓ Studied":"Mark as studied"}</button>${t.calc?`<button onclick="gotoCalc('${t.calc}')">🧮 Calculator</button>`:""}${(t.step||[]).length?`<button onclick="gotoStep('${t.step[0]}')">✓ Protocol step</button>`:""}</div>
    <div class="credit">${creditFor(t)}</div>
   </div>
  </article>`;}
@@ -1041,12 +1087,14 @@ function renderTrain(){
  $("#tchips").innerHTML=["All",...TRAIN_CATS].map(c=>`<button class="${c===tcat?"on":""}" data-c="${c}">${c}</button>`).join("");
  $$("#tchips button").forEach(b=>b.onclick=()=>{tcat=b.dataset.c;renderTrain();});
  const q=($("#tsearch").value||"").toLowerCase().trim();
- const list=TRAIN.filter(t=>(tcat==="All"||t.cat===tcat)&&(!q||JSON.stringify(t).toLowerCase().includes(q)));
+ const list=TRAIN.filter(t=>(!TOPIC_FILTER||TOPIC_FILTER.includes(t.id))&&(tcat==="All"||t.cat===tcat)&&(!q||JSON.stringify(t).toLowerCase().includes(q)));
+ const tf=$("#tfilter"); tf.style.display=TOPIC_FILTER?"block":"none"; if(TOPIC_FILTER)tf.innerHTML=`Showing the ${TOPIC_FILTER.length} topics for this level · <button class="learn" onclick="TOPIC_FILTER=null;renderTrain()">Show all topics</button>`;
  $("#tcount").textContent=`${list.length} topics · ${list.reduce((a,t)=>a+t.imgs.length,0)} images`;
  $("#tlist").innerHTML=list.length?list.map(cardHTML).join(""):'<p class="sub">No matches.</p>';
 }
 $("#tsearch").addEventListener("input",renderTrain);
-function openTrain(id){tcat="All";$("#tsearch").value="";go("train");renderTrain();setTimeout(()=>{const el=document.getElementById("t_"+id);if(el){el.scrollIntoView({block:"start"});scrollBy(0,-($("#hdr").offsetHeight+50));}},50);}
+function toggleStudied(id,b){const T=markTrainee(T=>{if(T.studied[id])delete T.studied[id];else T.studied[id]=today();});b.classList.toggle("on",!!T.studied[id]);b.textContent=T.studied[id]?"✓ Studied":"Mark as studied";}
+function openTrain(id){TOPIC_FILTER=null;tcat="All";$("#tsearch").value="";go("train");renderTrain();setTimeout(()=>{const el=document.getElementById("t_"+id);if(el){el.scrollIntoView({block:"start"});scrollBy(0,-($("#hdr").offsetHeight+50));}},50);}
 function gotoCalc(k){go("calc");setTimeout(()=>{const o=document.getElementById(CALC_OUT[k]);if(o){const c=o.closest(".card");c.scrollIntoView({block:"center"});c.animate([{boxShadow:"0 0 0 3px #1d6fa5"},{boxShadow:"none"}],{duration:1500});}},50);}
 function gotoStep(u){go("protocol");const sid=u.split(".")[0];const d=$("#sec_"+sid);if(d)d.open=true;setTimeout(()=>{const r=$(`.step[data-u="${u}"]`);if(r){r.scrollIntoView({block:"center"});r.animate([{background:"#cfe6f7"},{background:""}],{duration:1500});}},60);}
 /* lightbox with navigation */
@@ -1104,28 +1152,22 @@ function nextQ(){
   $("#qfb").innerHTML=`<button class="learn" onclick="openTrain('${t.id}')">📖 Review: ${t.t}</button>`;});
 }
 
-/* ---------- Home ---------- */
+/* ---------- Header ---------- */
 function updateHeader(){const f=S.f;$("#hsub").textContent=f.pid?[f.pid,f.ga&&f.ga+" wk",f.wt&&f.wt+" kg"].filter(Boolean).join(" · "):"Targeted neonatal echo";}
-function dismissWelcome(){try{localStorage.setItem("tnecho_welcome","1");}catch(e){}$("#welcome").style.display="none";}
-function renderHome(){
- let seen=false;try{seen=localStorage.getItem("tnecho_welcome")==="1";}catch(e){}
- $("#welcome").style.display=seen?"none":"block";
- const f=S.f,c=completeness(),pct=c.tot?Math.round(c.done/c.tot*100):0,hasD=f.pid||f.wt||f.ga;
- $("#heroCard").innerHTML=`<div class="htop"><div><small class="k">Current scan · ${isBeg()?"Beginner":"Full protocol"}</small><h2>${hasD?esc2(f.pid||"Baby"):"New baby"}</h2>
-   <div class="hm">${[f.ga&&esc2(f.ga)+" wk",f.dol&&"Day "+esc2(f.dol),f.wt&&esc2(f.wt)+" kg",f.date&&esc2(f.date)].filter(Boolean).join(" · ")||"No details yet"}</div></div>
-   <div class="ring" style="--p:${pct}"><b>${pct}%</b></div></div>
-  ${f.ind?`<div class="hind">${esc2(f.ind)}</div>`:'<div style="height:12px"></div>'}
-  ${hasD?`<button class="btn big" onclick="go('protocol')">${c.done?"Continue scan":"Start scan"} →</button>`:`<button class="btn big" onclick="go('study')">Enter baby details →</button>`}
-  <div class="btns">${hasD?`<button class="btn ghost" onclick="go('study')">✎ Baby details</button>`:`<button class="btn ghost" onclick="go('protocol')">Skip to scan</button>`}<button class="btn ghost" onclick="go('report')">📄 Report</button></div>`;
-}
 const esc2=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 /* ---------- Init ---------- */
-render();calc();setHH();updateHeader();comfortCount();go("home");
+render();calc();setHH();updateHeader();comfortCount();
 $("#ver").textContent="Version "+APP_VERSION;
 if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}
 </script>
 <script src="vendor/jspdf.umd.min.js" defer></script>
 <script src="cases.js"></script>
+<script src="learn.js"></script>
+<script src="atlas.js"></script>
+<script src="lab.js"></script>
+<script src="cases_lab.js"></script>
+<script src="portfolio.js"></script>
+<script>go("learn");</script>
 </body>
 </html>

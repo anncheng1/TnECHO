@@ -4,6 +4,25 @@ A mobile-first, offline-capable checklist for **Targeted Neonatal Echocardiograp
 [NeoCardio Lab TnECHO Echocardiography Protocol](https://www.neocardiolab.com/tnecho-and-neonatal-hemodynamics/normal-neonatal-echocardiography/tnecho-echocardiography-protocol)
 (Montreal Children's Hospital, Dr G. Altit).
 
+## What's new in v3.0 — training programme
+**Navigation:** six tabs — 📚 Learn · 🖼️ Atlas · 📏 Measure · 🧩 Case Lab · ✅ Assess · 👤 Portfolio — plus a green **▶ Scan** button in the header for bedside scans (Details · Steps · Report).
+
+| Level | Training focus | Expected competency |
+|---|---|---|
+| 1 Foundation | Ultrasound physics, anatomy, orientation | Recognise cardiac structures |
+| 2 Image acquisition | Standard views, probe handling, Doppler | Obtain reproducible views |
+| 3 Measurement | LV/RV function, PDA, output, PA pressure | Perform accurate measurements |
+| 4 Clinical integration | Haemodynamics and case interpretation | Formulate physiological assessment |
+
+- **Learn:** the four levels with suggested criteria that fill in automatically (topics studied, atlas views explored, probe animations watched, scans logged, views acquired, drills passed, cases completed, supervisor-signed scans, level quiz ≥ 80%). Edit targets in `learn.js` → `TARGETS`.
+- **Echo Atlas:** 9 standard views (PLAX, PSAX AV & papillary, A4C, A5C, subcostal, ductal, arch, high parasternal). Original labelled schematics — tap any structure for its explanation; animated probe position/rotation/tilt on an infant chest; reference and normal-vs-abnormal images; optional unit teaching loops (`atlas/loops.json`, see `atlas/loops/README.md`).
+- **Measure:** practice lab with 6 drills on synthetic tracings with known true values (LV M-mode/FS, LA:Ao, TAPSE, TR Vmax/RVSP, PAAT/RVET, PDA velocities) — instant scoring including timing in the cardiac cycle, correct calipers overlaid; 8 common measurement mistakes; calculators.
+- **Case Lab:** 5 cases (hsPDA, PPHN, transitional low flow, PICC tamponade, warm shock) with staged questions, feedback and physiological summaries.
+- **Assess:** level quizzes (10 random questions from a bank per level, pass 80%) and a mixed image quiz.
+- **My Portfolio:** profile, competency dashboard (scans, supervised/independent, signed-off, clip quality, drills, cases, views acquired, levels), per-study supervisor review with drawn signature, level sign-off, downloadable training portfolio PDF; logbook and CSV.
+
+Sign-offs are recorded on the trainee's device as entered by the supervisor; they are not cryptographically verified.
+
 ## What's new in v2.1 — simpler, beginner-friendly UI
 - **Bottom tab bar:** Home · Scan · Learn · Tools · Logbook (Report, Approach and About open from buttons, each with a back link).
 - **Home:** first-run welcome guide, current-scan card with progress ring and one big *Continue scan* button, quick-action tiles.
@@ -35,7 +54,7 @@ A mobile-first, offline-capable checklist for **Targeted Neonatal Echocardiograp
 
 ## Deploy to GitHub Pages
 1. Create a repo, named `TnECHO` under your account (`anncheng1`).
-2. Upload all files in this folder to the repo root: `index.html`, `training.js`, `cases.js`, the `vendor/` folder (jsPDF and Tesseract.js OCR, with licences), the `fig/` folder (26 ASE images plus `fig/npe/` with 63 manual images), `manifest.json`, `sw.js`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon-maskable-192.png`, `icon-maskable-512.png`, `favicon-32.png`, `README.md`.
+2. Upload all files in this folder to the repo root: `index.html`, `training.js`, `cases.js`, `learn.js`, `atlas.js`, `lab.js`, `cases_lab.js`, `portfolio.js`, the `atlas/` folder, the `vendor/` folder (jsPDF and Tesseract.js OCR, with licences), the `fig/` folder (26 ASE images plus `fig/npe/` with 63 manual images), `manifest.json`, `sw.js`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon-maskable-192.png`, `icon-maskable-512.png`, `favicon-32.png`, `README.md`.
 3. Repo **Settings → Pages → Build and deployment → Source: Deploy from a branch → `main` / `(root)`** → Save.
 4. After ~1 minute the app is live at `https://anncheng1.github.io/TnECHO/ (the path is case-sensitive)`.
 5. On phones: Chrome menu → *Install app*; Safari → Share → *Add to Home Screen*.
